@@ -1,5 +1,5 @@
 export interface File {
   name: string;
-  isdirectory: boolean;
+  isDirectory: boolean;
   size: number;
 }

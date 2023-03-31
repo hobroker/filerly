@@ -1,4 +1,3 @@
-import { type File } from "~/server/types";
 import { DirectoryTable } from "~/components/DirectoryTable";
 import { api } from "~/utils/api";
 

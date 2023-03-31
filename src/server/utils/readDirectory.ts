@@ -1,6 +1,6 @@
 import { readdir, stat } from "fs/promises";
 import { join } from "path";
-import { type File } from "~/server/types";
+import { type File } from "~/common/types";
 
 export const readDirectory = async (absolutePath: string): Promise<File[]> => {
   const filenames: string[] = await readdir(absolutePath);
@@ -9,7 +9,7 @@ export const readDirectory = async (absolutePath: string): Promise<File[]> => {
     filenames.map((item) =>
       stat(join(absolutePath, item)).then((stats) => ({
         name: item,
-        isdirectory: stats.isDirectory(),
+        isDirectory: stats.isDirectory(),
         size: stats.size,
       }))
     )
