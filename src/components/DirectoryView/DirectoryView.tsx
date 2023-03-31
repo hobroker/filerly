@@ -1,16 +1,16 @@
+import { useContext } from "react";
 import { DirectoryTable } from "~/components/DirectoryTable";
 import { api } from "~/utils/api";
+import { DirectoryContext } from "~/contexts/DirectoryContext";
+import { Breadcrumbs } from "~/components/Breadcrumbs/Breadcrumbs";
 
-interface Props {
-  path?: string[];
-}
-
-export const DirectoryView = ({ path = [] }: Props) => {
-  const { data } = api.fs.ls.useQuery({ path: path });
+export const DirectoryView = () => {
+  const { path } = useContext(DirectoryContext);
+  const { data } = api.fs.ls.useQuery({ path });
 
   return (
-    <div>
-      <b>path: {path}</b>
+    <div className="p-2">
+      <Breadcrumbs />
       <DirectoryTable data={data || []} />
     </div>
   );

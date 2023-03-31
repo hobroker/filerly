@@ -15,6 +15,8 @@ interface Props {
 
 const EXTENSION_ICONS: Record<string, Icon> = {
   js: FileJs,
+  mjs: FileJs,
+  cjs: FileJs,
   jsx: FileJsx,
   ts: FileTs,
   tsx: FileTsx,
