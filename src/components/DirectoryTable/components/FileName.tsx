@@ -11,13 +11,20 @@ interface Props {
 export const FileName = ({ filename, isDirectory }: Props) => {
   const { path } = useContext(DirectoryContext);
   const content = (
-    <span className="flex gap-2">
+    <span className="flex items-center gap-1">
       <FileIcon filename={filename} isDirectory={isDirectory} />
       {filename}
     </span>
   );
   if (isDirectory) {
-    return <Link href={[...path, filename].join("/")}>{content}</Link>;
+    return (
+      <Link
+        className="hover:text-blue-500"
+        href={[...path, filename].join("/")}
+      >
+        {content}
+      </Link>
+    );
   }
   return content;
 };

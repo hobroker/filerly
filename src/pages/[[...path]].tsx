@@ -10,9 +10,7 @@ const BrowsePage: NextPage<Params> = ({ path }) => {
   return (
     <>
       <main>
-        <DirectoryProvider path={path}>
-          <DirectoryView />
-        </DirectoryProvider>
+        <DirectoryView path={path} />
       </main>
     </>
   );

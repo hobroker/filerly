@@ -7,6 +7,7 @@ import {
 import { type File } from "~/common/types";
 import { bytesToHumanReadable } from "~/utils/filesize";
 import { FileName } from "~/components/DirectoryTable/components/FileName";
+import { Spinner } from "@phosphor-icons/react";
 
 const columnHelper = createColumnHelper<File>();
 
@@ -30,10 +31,16 @@ const columns = [
 ];
 
 interface Props {
-  data: File[];
+  data?: File[];
+  isErrored?: boolean;
+  isLoading?: boolean;
 }
 
-export const DirectoryTable = ({ data }: Props) => {
+export const DirectoryTable = ({
+  data = [],
+  isErrored = false,
+  isLoading = false,
+}: Props) => {
   const table = useReactTable({
     data,
     columns,
@@ -62,15 +69,25 @@ export const DirectoryTable = ({ data }: Props) => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className="border-b hover:bg-gray-50">
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="px-2 py-1">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
+        {isLoading ? (
+          <tr>
+            <td colSpan={2}>
+              <div className="flex w-full justify-center p-4">
+                <Spinner size={32} className="animate-spin" />
+              </div>
+            </td>
           </tr>
-        ))}
+        ) : (
+          table.getRowModel().rows.map((row) => (
+            <tr key={row.id} className="border-b hover:bg-gray-50">
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className="px-2 py-1">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   );

@@ -1,17 +1,21 @@
-import { useContext } from "react";
 import { DirectoryTable } from "~/components/DirectoryTable";
 import { api } from "~/utils/api";
-import { DirectoryContext } from "~/contexts/DirectoryContext";
+import { DirectoryProvider } from "~/contexts/DirectoryContext";
 import { Breadcrumbs } from "~/components/Breadcrumbs/Breadcrumbs";
 
-export const DirectoryView = () => {
-  const { path } = useContext(DirectoryContext);
-  const { data } = api.fs.ls.useQuery({ path });
+interface Props {
+  path: string[];
+}
+
+export const DirectoryView = ({ path }: Props) => {
+  const { data, error, isLoading } = api.fs.ls.useQuery({ path });
 
   return (
-    <div className="p-2">
-      <Breadcrumbs />
-      <DirectoryTable data={data || []} />
-    </div>
+    <DirectoryProvider path={path}>
+      <div className="p-2">
+        <Breadcrumbs />
+        <DirectoryTable data={data} isErrored={!!error} isLoading={isLoading} />
+      </div>
+    </DirectoryProvider>
   );
 };
