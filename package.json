@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0 --fix",
+    "lint": "next lint --max-warnings 0 --fix",
     "start": "next start",
     "prepare": "husky install"
   },
@@ -60,11 +60,5 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.10.0"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --max-warnings 0 --fix",
-      "prettier --write"
-    ]
   }
 }
