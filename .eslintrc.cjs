@@ -39,28 +39,14 @@ const config = {
     "import/order": [
       "warn",
       {
+        "newlines-between": "never",
         pathGroups: [
-          {
-            pattern: "react",
-            group: "external",
-            position: "before",
-          },
-          {
-            pattern: "next/**",
-            group: "external",
-            position: "before",
-          },
-          {
-            pattern: "~/**",
-            group: "internal",
-          },
+          { pattern: "react", group: "external", position: "before" },
+          { pattern: "next/**", group: "external", position: "before" },
+          { pattern: "~/**", group: "internal" },
         ],
         pathGroupsExcludedImportTypes: ["react"],
-        "newlines-between": "never",
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
+        alphabetize: { order: "asc", caseInsensitive: true },
         groups: [
           "builtin",
           "external",
