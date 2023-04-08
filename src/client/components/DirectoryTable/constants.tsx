@@ -26,11 +26,10 @@ export const DIRECTORY_TABLE_COLUMNS = [
         />
       </div>
     ),
-    cell: ({ row, table }: { row: Row<File>; table: Table<File> }) => {
+    cell: ({ row }: { row: Row<File> }) => {
       return (
         <div className="flex justify-center px-1">
-          {table.getState().rowSelection[row.id] === false ||
-          row.getIsSelected() ? (
+          {row.getIsSelected() ? (
             <Checkbox
               checked={row.getIsSelected()}
               disabled={!row.getCanSelect()}

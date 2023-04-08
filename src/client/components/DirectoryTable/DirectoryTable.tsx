@@ -24,30 +24,41 @@ export const DirectoryTable = ({
   isLoading = false,
 }: Props) => {
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
-  const [, setLastSelectedRow] = useState<string>();
-  const onRowSelectionChange = setRowSelection;
+  const [lastSelectedRow, setLastSelectedRow] = useState<string>();
+  const [lastSelectionRange, setLastSelectionRange] = useState<
+    Record<string, boolean>
+  >({});
   const table = useReactTable<File>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     state: { rowSelection },
     enableRowSelection: true,
-    onRowSelectionChange,
+    onRowSelectionChange: (rowSelection) => {
+      setLastSelectedRow(undefined);
+      setRowSelection(rowSelection);
+    },
   });
   const { ref } = useOnClickOutside<HTMLTableElement>(() =>
-    onRowSelectionChange({})
+    setRowSelection({})
   );
+  // console.log("lastSelectedRow", lastSelectedRow);
+  console.log(lastSelectionRange);
 
   return (
-    <table ref={ref} className="w-full whitespace-nowrap text-left text-sm">
-      <thead className="bg-gray-100 text-sm uppercase text-gray-700">
+    <table
+      ref={ref}
+      className="w-full whitespace-nowrap text-left text-sm"
+      tabIndex={0}
+    >
+      <thead className="border-b-2 text-sm uppercase">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
                 className={classNames(
-                  "h-6 p-0 first:rounded-bl-md last:rounded-br-md",
+                  "h-8 p-0 first:rounded-bl-md last:rounded-br-md",
                   (header.column.columnDef.meta as MetaType)?.className
                 )}
               >
@@ -74,9 +85,11 @@ export const DirectoryTable = ({
               <DirectoryTableRow
                 key={row.id}
                 row={row}
-                table={table}
                 setRowSelection={setRowSelection}
                 setLastSelectedRow={setLastSelectedRow}
+                lastSelectedRow={lastSelectedRow}
+                lastSelectionRange={lastSelectionRange}
+                setLastSelectionRange={setLastSelectionRange}
               />
             ))
         )}

@@ -1,74 +1,89 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
-import {
-  flexRender,
-  type OnChangeFn,
-  type Row,
-  type Table,
-} from "@tanstack/react-table";
+import { flexRender, type OnChangeFn, type Row } from "@tanstack/react-table";
 import classNames from "classnames";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
-import { type File } from "~/common/types";
+import { mapObject } from "~/client/utils/mapObject";
+import { range } from "~/client/utils/range";
 
 interface Props {
   row: Row<DirectoryTableRowData>;
-  table: Table<DirectoryTableRowData>;
   setRowSelection: OnChangeFn<Record<string, boolean>>;
   setLastSelectedRow: OnChangeFn<string | undefined>;
+  lastSelectedRow?: string;
+  lastSelectionRange: Record<string, boolean>;
+  setLastSelectionRange: OnChangeFn<Record<string, boolean>>;
 }
 
 export const DirectoryTableRow = ({
   row,
-  table,
   setRowSelection,
   setLastSelectedRow,
+  lastSelectedRow,
+  lastSelectionRange,
+  setLastSelectionRange,
 }: Props) => {
   const router = useRouter();
   const { path } = useContext(DirectoryContext);
 
-  const onRowDoubleClick = async (row: Row<File>) => {
+  const onRowDoubleClick = async () => {
     if (row.original.isDirectory) {
       setRowSelection({});
 
-      return router.push([...path, row.original.name].join("/"));
+      await router.push([...path, row.original.name].join("/"));
     }
     console.log("Open the file");
   };
-  const onRowClick =
-    (row: Row<File>) => (event: MouseEvent<HTMLTableRowElement>) => {
-      if (event.target instanceof HTMLInputElement) {
-        if (event.target.checked) {
-          setLastSelectedRow(row.id);
-        }
-
-        return;
+  const onRowClick = (event: MouseEvent<HTMLTableRowElement>) => {
+    event.preventDefault();
+    const hasShiftKey = event.shiftKey;
+    if (event.target instanceof HTMLInputElement) {
+      if (event.target.checked) {
+        setLastSelectedRow(row.id);
       }
-      setRowSelection({ [row.id]: true });
-      setLastSelectedRow(row.id);
-    };
-  const onRowMouseEnter = (row: Row<File>) => {
-    if (table.getState().rowSelection[row.id]) return;
-    setRowSelection((prev) => ({
-      ...prev,
-      [row.id]: false,
-    }));
-  };
-  const onRowMouseLeave = (row: Row<File>) => {
-    if (table.getState().rowSelection[row.id] === false) {
-      setRowSelection(({ [row.id]: _, ...rest }) => rest);
+
+      return;
     }
+    if (!hasShiftKey) {
+      setLastSelectedRow(row.id);
+    }
+    setRowSelection((prev) => ({
+      ...(event.metaKey && prev),
+      [row.id]: event.metaKey ? !prev[row.id] : true,
+    }));
+    let _lastSelectionRange = {};
+    if (event.metaKey) {
+      _lastSelectionRange = {};
+    }
+    if (hasShiftKey && lastSelectedRow) {
+      const selectionRange = range(row.id, lastSelectedRow).reduce(
+        (acc, id) => ({ ...acc, [id]: true }),
+        {}
+      );
+      const prevSelectionRange = mapObject(
+        (value) => !value,
+        lastSelectionRange
+      );
+      setRowSelection((prev) => ({
+        ...prev,
+        ...prevSelectionRange,
+        ...selectionRange,
+      }));
+      _lastSelectionRange = selectionRange;
+    }
+    setLastSelectionRange(_lastSelectionRange);
+    window.getSelection()?.removeAllRanges();
   };
 
   return (
     <tr
-      className={classNames("cursor-default border-b hover:bg-gray-50", {
-        "bg-gray-100": row.getIsSelected(),
+      className={classNames("cursor-default border-b", {
+        "bg-blue-100": row.getIsSelected(),
+        "hover:bg-gray-100": !row.getIsSelected(),
       })}
-      onDoubleClick={() => void onRowDoubleClick(row)}
-      onClick={onRowClick(row)}
-      onMouseEnter={() => onRowMouseEnter(row)}
-      onMouseLeave={() => onRowMouseLeave(row)}
+      onDoubleClick={() => void onRowDoubleClick()}
+      onClick={onRowClick}
     >
       {row.getVisibleCells().map((cell) => (
         <td key={cell.id} className="h-6 p-0">
