@@ -6,18 +6,18 @@ import {
 } from "@tanstack/react-table";
 import { Checkbox } from "~/client/components/Checkbox";
 import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
+import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
 import { TableActions } from "~/client/components/TableActions/TableActions";
 import { Text } from "~/client/components/Text";
-import { type File } from "~/common/types";
 import { bytesToHumanReadable } from "~/utils/filesize";
 
-const columnHelper = createColumnHelper<File>();
+const columnHelper = createColumnHelper<DirectoryTableRowData>();
 
 export const DIRECTORY_TABLE_COLUMNS = [
   {
     id: "select",
-    header: ({ table }: { table: Table<File> }) => (
+    header: ({ table }: { table: Table<DirectoryTableRowData> }) => (
       <div className="flex justify-center px-1">
         <Checkbox
           checked={table.getIsAllRowsSelected()}
@@ -26,7 +26,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
         />
       </div>
     ),
-    cell: ({ row }: { row: Row<File> }) => {
+    cell: ({ row }: { row: Row<DirectoryTableRowData> }) => {
       return (
         <div className="flex justify-center px-1">
           {row.getIsSelected() ? (

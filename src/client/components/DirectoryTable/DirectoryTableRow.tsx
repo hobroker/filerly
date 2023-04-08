@@ -1,7 +1,8 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
-import { flexRender, type OnChangeFn, type Row } from "@tanstack/react-table";
+import { flexRender, type Row } from "@tanstack/react-table";
 import classNames from "classnames";
+import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
 import { mapObject } from "~/client/utils/mapObject";
@@ -9,23 +10,18 @@ import { range } from "~/client/utils/range";
 
 interface Props {
   row: Row<DirectoryTableRowData>;
-  setRowSelection: OnChangeFn<Record<string, boolean>>;
-  setLastSelectedRow: OnChangeFn<string | undefined>;
-  lastSelectedRow?: string;
-  lastSelectionRange: Record<string, boolean>;
-  setLastSelectionRange: OnChangeFn<Record<string, boolean>>;
 }
 
-export const DirectoryTableRow = ({
-  row,
-  setRowSelection,
-  setLastSelectedRow,
-  lastSelectedRow,
-  lastSelectionRange,
-  setLastSelectionRange,
-}: Props) => {
+export const DirectoryTableRow = ({ row }: Props) => {
   const router = useRouter();
   const { path } = useContext(DirectoryContext);
+  const {
+    setRowSelection,
+    lastSelectedRow,
+    setLastSelectedRow,
+    lastSelectionRange,
+    setLastSelectionRange,
+  } = useContext(DirectoryTableContext);
 
   const onRowDoubleClick = async () => {
     if (row.original.isDirectory) {
@@ -36,8 +32,8 @@ export const DirectoryTableRow = ({
     console.log("Open the file");
   };
   const onRowClick = (event: MouseEvent<HTMLTableRowElement>) => {
-    event.preventDefault();
     const hasShiftKey = event.shiftKey;
+    const hasMetaKey = event.metaKey || event.ctrlKey;
     if (event.target instanceof HTMLInputElement) {
       if (event.target.checked) {
         setLastSelectedRow(row.id);
@@ -49,11 +45,11 @@ export const DirectoryTableRow = ({
       setLastSelectedRow(row.id);
     }
     setRowSelection((prev) => ({
-      ...(event.metaKey && prev),
-      [row.id]: event.metaKey ? !prev[row.id] : true,
+      ...(hasMetaKey && prev),
+      [row.id]: hasMetaKey ? !prev[row.id] : true,
     }));
     let _lastSelectionRange = {};
-    if (event.metaKey) {
+    if (hasMetaKey) {
       _lastSelectionRange = {};
     }
     if (hasShiftKey && lastSelectedRow) {
