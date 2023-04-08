@@ -1,70 +1,18 @@
 import {
-  createColumnHelper,
+  type Row,
   flexRender,
   getCoreRowModel,
-  Row,
   useReactTable,
 } from "@tanstack/react-table";
 import { useRouter } from "next/router";
 import { type File } from "~/common/types";
-import { bytesToHumanReadable } from "~/utils/filesize";
-import { FileName } from "~/client/components/DirectoryTable/components/FileName";
-import { Pencil, Trash } from "@phosphor-icons/react";
-import { TableActions } from "~/client/components/TableActions/TableActions";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
 import classNames from "classnames";
 import { type MetaType } from "~/client/components/DirectoryTable/types";
-import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
-import { useContext } from "react";
+import { type MouseEvent, useContext, useState } from "react";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
-
-const columnHelper = createColumnHelper<File>();
-
-const columns = [
-  columnHelper.accessor("name", {
-    cell: (info) => (
-      <FileName
-        filename={info.getValue()}
-        isDirectory={info.row.original.isDirectory}
-      />
-    ),
-    header: () => <span>Name</span>,
-    meta: {
-      className: "pl-5",
-    },
-  }),
-  columnHelper.accessor("size", {
-    cell: (info) =>
-      info.row.original.isDirectory
-        ? null
-        : bytesToHumanReadable(info.getValue()),
-    header: () => <span>Size</span>,
-    meta: {
-      className: "w-28",
-    },
-  }),
-  columnHelper.accessor("lastModified", {
-    cell: (info) => toFormattedDate(info.getValue()),
-    header: () => <span>Last modified</span>,
-    meta: {
-      className: "w-28a",
-    },
-  }),
-  {
-    id: "actions",
-    meta: {
-      className: "w-6",
-    },
-    cell: () => (
-      <TableActions
-        items={[
-          { title: "Delete", icon: Trash, variation: "danger" },
-          { title: "Edit", icon: Pencil },
-        ]}
-      />
-    ),
-  },
-];
+import { useDirectoryTableColumns } from "~/client/components/DirectoryTable/hooks/useDirectoryTableColumns";
+import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
 
 interface Props {
   data?: File[];
@@ -79,22 +27,43 @@ export const DirectoryTable = ({
 }: Props) => {
   const router = useRouter();
   const { path } = useContext(DirectoryContext);
+  const [rowSelection, setRowSelection] = useState({});
+  const [mouseOverRowId, setMouseOverRowId] = useState<string>();
+  const columns = useDirectoryTableColumns({ mouseOverRowId });
+  const { ref } = useOnClickOutside<HTMLTableElement>(() =>
+    setRowSelection({})
+  );
   const table = useReactTable<File>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    state: { rowSelection },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
   });
 
   const onRowDoubleClick = async (row: Row<File>) => {
     if (row.original.isDirectory) {
+      setRowSelection({});
       return router.push([...path, row.original.name].join("/"));
     }
     console.log("Open the file");
   };
+  const onRowClick =
+    (row: Row<File>) => (event: MouseEvent<HTMLTableRowElement>) => {
+      if (event.target instanceof HTMLInputElement) return;
+      setRowSelection({ [row.id]: true });
+    };
+  const onRowMouseEnter = (row: Row<File>) => {
+    setMouseOverRowId(row.id);
+  };
+  const onRowMouseLeave = () => {
+    setMouseOverRowId(undefined);
+  };
 
   return (
-    <table className="w-full whitespace-nowrap text-left text-sm">
-      <thead className="bg-gray-100 text-xs uppercase text-gray-700">
+    <table ref={ref} className="w-full whitespace-nowrap text-left text-sm">
+      <thead className="bg-gray-100 text-sm uppercase text-gray-700">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
@@ -105,12 +74,10 @@ export const DirectoryTable = ({
                   (header.column.columnDef.meta as MetaType)?.className
                 )}
               >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
               </th>
             ))}
           </tr>
@@ -127,8 +94,13 @@ export const DirectoryTable = ({
           table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              className="border-b hover:bg-gray-50"
+              className={classNames("border-b hover:bg-gray-50 cursor-default", {
+                "bg-gray-100": row.getIsSelected(),
+              })}
               onDoubleClick={() => void onRowDoubleClick(row)}
+              onClick={onRowClick(row)}
+              onMouseEnter={() => onRowMouseEnter(row)}
+              onMouseLeave={onRowMouseLeave}
             >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="h-6 p-0">

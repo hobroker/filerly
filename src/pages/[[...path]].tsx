@@ -6,11 +6,9 @@ type Params = {
 };
 
 const BrowsePage: NextPage<Params> = ({ path }) => {
-  return (
-    <>
-      <main>{path && <DirectoryView path={path} />}</main>
-    </>
-  );
+  if (!path) return null;
+
+  return <DirectoryView path={path} />;
 };
 
 export const getStaticProps: GetStaticProps<Params> = (context) => {
