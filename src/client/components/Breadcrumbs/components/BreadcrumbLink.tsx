@@ -10,7 +10,7 @@ export const BreadcrumbLink = ({ title, path }: Props) => {
   return (
     <Link
       href={path.join("/")}
-      className="text-sm text-gray-700 hover:underline"
+      className="text-sm hover:underline"
     >
       {title}
     </Link>
