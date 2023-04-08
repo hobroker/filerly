@@ -3,13 +3,13 @@ import {
   type Row,
   type Table,
 } from "@tanstack/react-table";
+import { Pencil, Trash } from "@phosphor-icons/react";
+import { useMemo } from "react";
 import { type File } from "~/common/types";
 import { Checkbox } from "~/client/components/Checkbox";
 import { bytesToHumanReadable } from "~/utils/filesize";
 import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
 import { TableActions } from "~/client/components/TableActions/TableActions";
-import { Pencil, Trash } from "@phosphor-icons/react";
-import { useMemo } from "react";
 import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
 import { Text } from "~/client/components/Text";
 

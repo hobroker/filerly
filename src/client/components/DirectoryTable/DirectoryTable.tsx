@@ -5,11 +5,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useRouter } from "next/router";
+import classNames from "classnames";
+import { type MouseEvent, useContext, useState } from "react";
 import { type File } from "~/common/types";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
-import classNames from "classnames";
 import { type MetaType } from "~/client/components/DirectoryTable/types";
-import { type MouseEvent, useContext, useState } from "react";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
 import { useDirectoryTableColumns } from "~/client/components/DirectoryTable/hooks/useDirectoryTableColumns";
 import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
@@ -45,6 +45,7 @@ export const DirectoryTable = ({
   const onRowDoubleClick = async (row: Row<File>) => {
     if (row.original.isDirectory) {
       setRowSelection({});
+
       return router.push([...path, row.original.name].join("/"));
     }
     console.log("Open the file");
@@ -94,9 +95,12 @@ export const DirectoryTable = ({
           table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              className={classNames("border-b hover:bg-gray-50 cursor-default", {
-                "bg-gray-100": row.getIsSelected(),
-              })}
+              className={classNames(
+                "cursor-default border-b hover:bg-gray-50",
+                {
+                  "bg-gray-100": row.getIsSelected(),
+                }
+              )}
               onDoubleClick={() => void onRowDoubleClick(row)}
               onClick={onRowClick(row)}
               onMouseEnter={() => onRowMouseEnter(row)}

@@ -6,5 +6,6 @@ export const toFormattedDate = (ms: number): string => {
   if (dateObj.hasSame(today, "day")) {
     return dateObj.toLocaleString(DateTime.TIME_SIMPLE);
   }
+
   return dateObj.toLocaleString(DateTime.DATE_MED);
 };
