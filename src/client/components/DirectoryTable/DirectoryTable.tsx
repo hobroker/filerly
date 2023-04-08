@@ -1,4 +1,5 @@
 import { type MouseEvent, useContext, useState } from "react";
+import { useRouter } from "next/router";
 import {
   type Row,
   flexRender,
@@ -6,7 +7,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import classNames from "classnames";
-import { useRouter } from "next/router";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
 import { useDirectoryTableColumns } from "~/client/components/DirectoryTable/hooks/useDirectoryTableColumns";
 import { type MetaType } from "~/client/components/DirectoryTable/types";

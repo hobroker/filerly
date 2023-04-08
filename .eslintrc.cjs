@@ -42,8 +42,17 @@ const config = {
         pathGroups: [
           {
             pattern: "react",
-            group: "builtin",
+            group: "external",
             position: "before",
+          },
+          {
+            pattern: "next/**",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "~/**",
+            group: "internal",
           },
         ],
         pathGroupsExcludedImportTypes: ["react"],
