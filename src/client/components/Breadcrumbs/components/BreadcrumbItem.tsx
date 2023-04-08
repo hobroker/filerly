@@ -1,7 +1,7 @@
-import { type ReactNode } from "react";
 import { CaretRight } from "@phosphor-icons/react";
-import { BreadcrumbText } from "~/client/components/Breadcrumbs/components/BreadcrumbText";
+import { type ReactNode } from "react";
 import { BreadcrumbLink } from "~/client/components/Breadcrumbs/components/BreadcrumbLink";
+import { BreadcrumbText } from "~/client/components/Breadcrumbs/components/BreadcrumbText";
 
 interface Props {
   title: ReactNode;

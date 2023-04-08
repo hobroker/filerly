@@ -4,15 +4,15 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useRouter } from "next/router";
 import classNames from "classnames";
+import { useRouter } from "next/router";
 import { type MouseEvent, useContext, useState } from "react";
-import { type File } from "~/common/types";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
+import { useDirectoryTableColumns } from "~/client/components/DirectoryTable/hooks/useDirectoryTableColumns";
 import { type MetaType } from "~/client/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
-import { useDirectoryTableColumns } from "~/client/components/DirectoryTable/hooks/useDirectoryTableColumns";
 import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
+import { type File } from "~/common/types";
 
 interface Props {
   data?: File[];

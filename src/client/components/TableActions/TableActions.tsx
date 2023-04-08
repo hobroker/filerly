@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 import classNames from "classnames";
+import { Fragment } from "react";
 import { type TableAction } from "~/client/components/TableActions/types";
 
 interface Props {
