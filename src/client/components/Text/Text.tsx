@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { type HTMLAttributes, type PropsWithChildren } from "react";
+import classNames from "classnames";
 
 interface Props
   extends PropsWithChildren<
