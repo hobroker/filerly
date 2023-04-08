@@ -1,16 +1,14 @@
-import { type MouseEvent, useContext, useState } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import {
-  type Row,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import classNames from "classnames";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
-import { useDirectoryTableColumns } from "~/client/components/DirectoryTable/hooks/useDirectoryTableColumns";
+import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryTable/constants";
+import { DirectoryTableRow } from "~/client/components/DirectoryTable/DirectoryTableRow";
 import { type MetaType } from "~/client/components/DirectoryTable/types";
-import { DirectoryContext } from "~/client/contexts/DirectoryContext";
 import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
 import { type File } from "~/common/types";
 
@@ -25,42 +23,20 @@ export const DirectoryTable = ({
   isErrored = false,
   isLoading = false,
 }: Props) => {
-  const router = useRouter();
-  const { path } = useContext(DirectoryContext);
-  const [rowSelection, setRowSelection] = useState({});
-  const [mouseOverRowId, setMouseOverRowId] = useState<string>();
-  const columns = useDirectoryTableColumns({ mouseOverRowId });
-  const { ref } = useOnClickOutside<HTMLTableElement>(() =>
-    setRowSelection({})
-  );
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [, setLastSelectedRow] = useState<string>();
+  const onRowSelectionChange = setRowSelection;
   const table = useReactTable<File>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     state: { rowSelection },
     enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange,
   });
-
-  const onRowDoubleClick = async (row: Row<File>) => {
-    if (row.original.isDirectory) {
-      setRowSelection({});
-
-      return router.push([...path, row.original.name].join("/"));
-    }
-    console.log("Open the file");
-  };
-  const onRowClick =
-    (row: Row<File>) => (event: MouseEvent<HTMLTableRowElement>) => {
-      if (event.target instanceof HTMLInputElement) return;
-      setRowSelection({ [row.id]: true });
-    };
-  const onRowMouseEnter = (row: Row<File>) => {
-    setMouseOverRowId(row.id);
-  };
-  const onRowMouseLeave = () => {
-    setMouseOverRowId(undefined);
-  };
+  const { ref } = useOnClickOutside<HTMLTableElement>(() =>
+    onRowSelectionChange({})
+  );
 
   return (
     <table ref={ref} className="w-full whitespace-nowrap text-left text-sm">
@@ -92,27 +68,17 @@ export const DirectoryTable = ({
             </td>
           </tr>
         ) : (
-          table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className={classNames(
-                "cursor-default border-b hover:bg-gray-50",
-                {
-                  "bg-gray-100": row.getIsSelected(),
-                }
-              )}
-              onDoubleClick={() => void onRowDoubleClick(row)}
-              onClick={onRowClick(row)}
-              onMouseEnter={() => onRowMouseEnter(row)}
-              onMouseLeave={onRowMouseLeave}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="h-6 p-0">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))
+          table
+            .getRowModel()
+            .rows.map((row) => (
+              <DirectoryTableRow
+                key={row.id}
+                row={row}
+                table={table}
+                setRowSelection={setRowSelection}
+                setLastSelectedRow={setLastSelectedRow}
+              />
+            ))
         )}
       </tbody>
     </table>
