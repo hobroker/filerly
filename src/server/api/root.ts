@@ -1,5 +1,5 @@
+import { fsRouter } from "~/server/api/routers/fs";
 import { createTRPCRouter } from "~/server/api/trpc";
-import {fsRouter} from "~/server/api/routers/fs";
 
 /**
  * This is the primary router for your server.
@@ -7,7 +7,7 @@ import {fsRouter} from "~/server/api/routers/fs";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  fs: fsRouter
+  fs: fsRouter,
 });
 
 // export type definition of API

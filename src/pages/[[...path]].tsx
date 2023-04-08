@@ -13,6 +13,7 @@ const BrowsePage: NextPage<Params> = ({ path }) => {
 
 export const getStaticProps: GetStaticProps<Params> = (context) => {
   const path = context.params?.path;
+
   return {
     props: { path: path ? (Array.isArray(path) ? path : [path]) : [] },
   };

@@ -1,8 +1,8 @@
 import { type AppType } from "next/app";
-import { api } from "~/utils/api";
-import "~/client/styles/globals.css";
-import Head from "next/head";
 import { Roboto_Mono } from "next/font/google";
+import Head from "next/head";
+import { api } from "~/client/utils/api";
+import "~/client/styles/globals.css";
 
 const font = Roboto_Mono({
   display: "swap",

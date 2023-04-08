@@ -1,17 +1,17 @@
+import { useMemo } from "react";
+import { Pencil, Trash } from "@phosphor-icons/react";
 import {
   createColumnHelper,
   type Row,
   type Table,
 } from "@tanstack/react-table";
-import { type File } from "~/common/types";
 import { Checkbox } from "~/client/components/Checkbox";
-import { bytesToHumanReadable } from "~/utils/filesize";
+import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
 import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
 import { TableActions } from "~/client/components/TableActions/TableActions";
-import { Pencil, Trash } from "@phosphor-icons/react";
-import { useMemo } from "react";
-import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
 import { Text } from "~/client/components/Text";
+import { type File } from "~/common/types";
+import { bytesToHumanReadable } from "~/utils/filesize";
 
 const columnHelper = createColumnHelper<File>();
 
