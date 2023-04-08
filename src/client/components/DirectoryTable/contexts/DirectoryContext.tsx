@@ -15,7 +15,6 @@ interface Props {
 
 interface ContextType {
   table: Table<DirectoryTableRowData>;
-  rowSelection: Record<string, boolean>;
   setRowSelection: OnChangeFn<Record<string, boolean>>;
   lastSelectedRow?: string;
   setLastSelectedRow: OnChangeFn<string | undefined>;
@@ -47,7 +46,6 @@ function DirectoryTableProvider({ children, data }: Props) {
     <DirectoryTableContext.Provider
       value={{
         table,
-        rowSelection,
         setRowSelection,
         lastSelectedRow,
         setLastSelectedRow,

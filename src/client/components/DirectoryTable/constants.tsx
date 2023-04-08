@@ -20,6 +20,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
     header: ({ table }: { table: Table<DirectoryTableRowData> }) => (
       <div className="flex justify-center px-1">
         <Checkbox
+          className="h-4 w-4"
           checked={table.getIsAllRowsSelected()}
           indeterminate={table.getIsSomeRowsSelected()}
           onChange={table.getToggleAllRowsSelectedHandler()}
@@ -31,6 +32,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
         <div className="flex justify-center px-1">
           {row.getIsSelected() ? (
             <Checkbox
+              className="h-4 w-4"
               checked={row.getIsSelected()}
               disabled={!row.getCanSelect()}
               indeterminate={row.getIsSomeSelected()}

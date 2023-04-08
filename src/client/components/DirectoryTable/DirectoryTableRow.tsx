@@ -23,7 +23,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectionRange,
   } = useContext(DirectoryTableContext);
 
-  const onRowDoubleClick = async () => {
+  const onDoubleClick = async () => {
     if (row.original.isDirectory) {
       setRowSelection({});
 
@@ -31,7 +31,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
     }
     console.log("Open the file");
   };
-  const onRowClick = (event: MouseEvent<HTMLTableRowElement>) => {
+  const onClick = (event: MouseEvent<HTMLTableRowElement>) => {
     const hasShiftKey = event.shiftKey;
     const hasMetaKey = event.metaKey || event.ctrlKey;
     if (event.target instanceof HTMLInputElement) {
@@ -44,10 +44,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
     if (!hasShiftKey) {
       setLastSelectedRow(row.id);
     }
-    setRowSelection((prev) => ({
-      ...(hasMetaKey && prev),
-      [row.id]: hasMetaKey ? !prev[row.id] : true,
-    }));
     let _lastSelectionRange = {};
     if (hasMetaKey) {
       _lastSelectionRange = {};
@@ -67,6 +63,11 @@ export const DirectoryTableRow = ({ row }: Props) => {
         ...selectionRange,
       }));
       _lastSelectionRange = selectionRange;
+    } else {
+      setRowSelection((prev) => ({
+        ...(hasMetaKey && prev),
+        [row.id]: hasMetaKey ? !prev[row.id] : true,
+      }));
     }
     setLastSelectionRange(_lastSelectionRange);
     window.getSelection()?.removeAllRanges();
@@ -74,12 +75,13 @@ export const DirectoryTableRow = ({ row }: Props) => {
 
   return (
     <tr
+      tabIndex={0}
       className={classNames("cursor-default border-b", {
         "bg-blue-100": row.getIsSelected(),
         "hover:bg-gray-100": !row.getIsSelected(),
       })}
-      onDoubleClick={() => void onRowDoubleClick()}
-      onClick={onRowClick}
+      onDoubleClick={() => void onDoubleClick()}
+      onClick={onClick}
     >
       {row.getVisibleCells().map((cell) => (
         <td key={cell.id} className="h-6 p-0">
