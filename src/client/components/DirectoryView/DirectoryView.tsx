@@ -1,7 +1,7 @@
-import { DirectoryTable } from "~/components/DirectoryTable";
+import { DirectoryTable } from "~/client/components/DirectoryTable";
 import { api } from "~/utils/api";
-import { DirectoryProvider } from "~/contexts/DirectoryContext";
-import { Breadcrumbs } from "~/components/Breadcrumbs/Breadcrumbs";
+import { DirectoryProvider } from "~/client/contexts/DirectoryContext";
+import { Breadcrumbs } from "~/client/components/Breadcrumbs/Breadcrumbs";
 
 interface Props {
   path: string[];
@@ -13,7 +13,7 @@ export const DirectoryView = ({ path }: Props) => {
   return (
     <DirectoryProvider path={path}>
       <div className="p-2">
-        <Breadcrumbs />
+        <Breadcrumbs path={path} />
         <DirectoryTable data={data} isErrored={!!error} isLoading={isLoading} />
       </div>
     </DirectoryProvider>

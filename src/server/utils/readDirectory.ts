@@ -13,6 +13,7 @@ export const readDirectory = async (absolutePath: string): Promise<File[]> => {
         name: item,
         isDirectory: stats.isDirectory(),
         size: stats.size,
+        lastModified: stats.mtimeMs,
       };
     })
   );

@@ -1,6 +1,5 @@
 import type { GetStaticProps, GetStaticPaths, NextPage } from "next";
-import { DirectoryView } from "~/components/DirectoryView";
-import { DirectoryProvider } from "~/contexts/DirectoryContext";
+import { DirectoryView } from "~/client/components/DirectoryView";
 
 type Params = {
   path: string[];
@@ -9,9 +8,7 @@ type Params = {
 const BrowsePage: NextPage<Params> = ({ path }) => {
   return (
     <>
-      <main>
-        <DirectoryView path={path} />
-      </main>
+      <main>{path && <DirectoryView path={path} />}</main>
     </>
   );
 };
