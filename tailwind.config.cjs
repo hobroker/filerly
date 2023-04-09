@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
-  darkMode: 'class',
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/forms"),
+  ],
 };
 
 module.exports = config;
