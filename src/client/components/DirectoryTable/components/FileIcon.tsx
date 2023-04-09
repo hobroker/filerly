@@ -8,7 +8,7 @@ interface Props {
 
 export const FileIcon = ({ isDirectory, filename }: Props) => {
   if (isDirectory) {
-    return <Folder weight="fill" size={20} />;
+    return <Folder weight="fill" className="" size={20} />;
   }
   const { svg } = getIcon(filename);
 
