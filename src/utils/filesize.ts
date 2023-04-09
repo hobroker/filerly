@@ -1,10 +1,10 @@
-export const bytesToHumanReadable = (bytes: number) => {
-  if (bytes == 0) {
-    return "0.00 B";
-  }
-  const e = Math.floor(Math.log(bytes) / Math.log(1024));
+export const bytesToHumanReadable = (bytes: number, decimals = 2) => {
+  if (bytes == 0) return "0 B";
+  const k = 1024;
+  const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  const idx = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return (
-    (bytes / Math.pow(1024, e)).toFixed(2) + " " + " KMGTP".charAt(e) + "B"
-  );
+  return `${parseFloat((bytes / Math.pow(k, idx)).toFixed(decimals))} ${
+    sizes[idx] || "B"
+  }`;
 };
