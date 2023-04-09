@@ -1,8 +1,8 @@
 import { useContext, useRef } from "react";
 import { flexRender } from "@tanstack/react-table";
 import classNames from "classnames";
+import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryTable/columns";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
-import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryTable/constants";
 import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
 import { DirectoryTableRow } from "~/client/components/DirectoryTable/DirectoryTableRow";
 import { type MetaType } from "~/client/components/DirectoryTable/types";
@@ -34,7 +34,7 @@ export const DirectoryTableContent = ({
               <th
                 key={header.id}
                 className={classNames(
-                  "h-8 p-0 first:rounded-bl-md last:rounded-br-md",
+                  "prose-sm h-8 p-0 first:rounded-bl-md last:rounded-br-md",
                   (header.column.columnDef.meta as MetaType)?.className
                 )}
               >
