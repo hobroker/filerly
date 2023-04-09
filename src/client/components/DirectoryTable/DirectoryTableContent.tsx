@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { flexRender } from "@tanstack/react-table";
 import classNames from "classnames";
 import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
@@ -18,9 +18,8 @@ export const DirectoryTableContent = ({
   isLoading = false,
 }: Props) => {
   const { table, setRowSelection } = useContext(DirectoryTableContext);
-  const { ref } = useOnClickOutside<HTMLTableElement>(() =>
-    setRowSelection({})
-  );
+  const ref = useRef<HTMLTableElement>(null);
+  useOnClickOutside<HTMLTableElement>(ref, () => setRowSelection({}));
 
   return (
     <table

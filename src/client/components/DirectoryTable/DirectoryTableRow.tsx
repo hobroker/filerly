@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
+import { clearWindowSelection } from "~/client/utils/clearWindowSelection";
 import { mapObject } from "~/client/utils/mapObject";
 import { range } from "~/client/utils/range";
 
@@ -26,6 +27,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
   const onDoubleClick = async () => {
     if (row.original.isDirectory) {
       setRowSelection({});
+      clearWindowSelection();
 
       await router.push([...path, row.original.name].join("/"));
     }
@@ -70,7 +72,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
       }));
     }
     setLastSelectionRange(_lastSelectionRange);
-    window.getSelection()?.removeAllRanges();
+    clearWindowSelection();
   };
 
   return (
