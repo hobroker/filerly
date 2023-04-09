@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/hobroker/filerly/compare/v1.0.0...v1.1.0) (2023-04-09)
+
+
+### Features
+
+* add ctrl/cmd/shift rows select ([#8](https://github.com/hobroker/filerly/issues/8)) ([f56af30](https://github.com/hobroker/filerly/commit/f56af3057a2ac1d27f556dba12d06176e3e2a0bf))
+
 # 1.0.0 (2023-04-08)
 
 
