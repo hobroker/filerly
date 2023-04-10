@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/hobroker/filerly/compare/v1.1.0...v1.2.0) (2023-04-10)
+
+
+### Features
+
+* add tailwind forms/typography plugins ([#9](https://github.com/hobroker/filerly/issues/9)) ([569a2ef](https://github.com/hobroker/filerly/commit/569a2ef7fd6836045148f027ce60d0b3a08223f1))
+
 # [1.1.0](https://github.com/hobroker/filerly/compare/v1.0.0...v1.1.0) (2023-04-09)
 
 
