@@ -47,7 +47,7 @@ export const DirectoryTableContent = ({
           </tr>
         ))}
       </thead>
-      <tbody>
+      <tbody className="text-gray-700">
         {isLoading || isErrored ? (
           <tr>
             <td className="h-6 p-0" colSpan={columns.length}>

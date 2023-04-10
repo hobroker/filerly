@@ -9,7 +9,7 @@ import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
 import { TableActions } from "~/client/components/TableActions/TableActions";
-import { bytesToHumanReadable } from "~/utils/filesize";
+import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
 
 const columnHelper = createColumnHelper<DirectoryTableRowData>();
 
