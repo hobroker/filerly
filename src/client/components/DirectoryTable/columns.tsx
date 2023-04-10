@@ -9,7 +9,6 @@ import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
 import { TableActions } from "~/client/components/TableActions/TableActions";
-import { Text } from "~/client/components/Text";
 import { bytesToHumanReadable } from "~/utils/filesize";
 
 const columnHelper = createColumnHelper<DirectoryTableRowData>();
@@ -50,20 +49,24 @@ export const DIRECTORY_TABLE_COLUMNS = [
     meta: { className: "w-8" },
   },
   columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-    header: () => <Text>Name</Text>,
+    cell: (info) => <span className="prose-sm pr-2">{info.getValue()}</span>,
+    header: () => "Name",
   }),
   columnHelper.accessor("size", {
     cell: (info) =>
       info.row.original.isDirectory ? null : (
-        <Text size="sm">{bytesToHumanReadable(info.getValue())}</Text>
+        <span className="prose-sm pr-2">
+          {bytesToHumanReadable(info.getValue())}
+        </span>
       ),
-    header: () => <span>Size</span>,
+    header: () => "Size",
     meta: { className: "w-28" },
   }),
   columnHelper.accessor("lastModified", {
-    cell: (info) => <Text>{toFormattedDate(info.getValue())}</Text>,
-    header: () => <span>Last modified</span>,
+    cell: (info) => (
+      <span className="prose-sm pr-2">{toFormattedDate(info.getValue())}</span>
+    ),
+    header: () => "Last modified",
     meta: { className: "w-28" },
   }),
   {
