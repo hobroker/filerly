@@ -16,6 +16,7 @@ const config = {
       ...colors,
       base: colors.gray,
       primary: colors.blue,
+      success: colors.green,
       danger: colors.red,
     },
   },

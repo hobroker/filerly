@@ -1,6 +1,7 @@
 import { Breadcrumbs } from "~/client/components/Breadcrumbs";
 import { DirectoryTable } from "~/client/components/DirectoryView/components/DirectoryTable";
 import { DirectoryProvider } from "~/client/components/DirectoryView/contexts";
+import { ToastProvider } from "~/client/components/Toast/contexts/ToastContext";
 import { api } from "~/client/utils";
 
 interface Props {
@@ -12,10 +13,16 @@ export const DirectoryView = ({ path }: Props) => {
 
   return (
     <DirectoryProvider path={path}>
-      <div className="p-2">
-        <Breadcrumbs path={path} />
-        <DirectoryTable data={data} isErrored={!!error} isLoading={isLoading} />
-      </div>
+      <ToastProvider>
+        <div className="p-2">
+          <Breadcrumbs path={path} />
+          <DirectoryTable
+            data={data}
+            isErrored={!!error}
+            isLoading={isLoading}
+          />
+        </div>
+      </ToastProvider>
     </DirectoryProvider>
   );
 };
