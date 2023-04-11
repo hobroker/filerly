@@ -57,13 +57,7 @@ export const DirectoryTableContent = ({
         ))}
       </thead>
       <DirectoryTableShortcutMenu>
-        <tbody
-          className="text-gray-700"
-          onContextMenu={onContextMenu}
-          onClick={(e) => {
-            console.log("e.target", e.target);
-          }}
-        >
+        <tbody className="text-base-700" onContextMenu={onContextMenu}>
           {isLoading || isErrored ? (
             <tr>
               <td className="h-6 p-0" colSpan={columns.length}>

@@ -29,7 +29,7 @@ export const ShortcutMenu = ({
               key={title}
               onClick={onClick}
               className={classNames(
-                "prose-sm relative flex w-full cursor-default items-center gap-2 rounded px-2 py-1",
+                "prose-sm relative flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none",
                 {
                   primary:
                     "text-primary-900 focus:bg-primary-400 focus:text-white",

@@ -20,7 +20,7 @@ export const DirectoryTableShortcutMenu = ({ children }: Props) => {
       isOneSelected && {
         title: "Rename",
         icon: Pencil,
-        onClick: () => console.log("New Folder"),
+        onClick: () => console.log("Rename"),
       },
       {
         title: "Delete",

@@ -79,7 +79,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
     <tr
       className={classNames("cursor-default border-b", {
         "bg-primary-100": row.getIsSelected(),
-        "hover:bg-gray-100": !row.getIsSelected(),
+        "hover:bg-base-100": !row.getIsSelected(),
       })}
       data-row-id={row.id}
       onDoubleClick={() => void onDoubleClick()}
