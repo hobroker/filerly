@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { DotsThreeVertical } from "@phosphor-icons/react";
-import classNames from "classnames";
 import { type TableAction } from "~/client/components/TableActions/types";
+import { cx } from "~/client/utils/cx";
 
 interface Props {
   items: TableAction[];
@@ -32,7 +32,7 @@ export const TableActions = ({ items }: Props) => {
                 {({ active }) => (
                   <button
                     onClick={onClick}
-                    className={classNames(
+                    className={cx(
                       "prose-sm flex w-full items-center gap-2 rounded px-2 py-1",
                       {
                         primary: {

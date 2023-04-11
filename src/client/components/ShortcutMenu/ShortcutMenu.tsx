@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
-import classNames from "classnames";
 import { type ShortcutMenuItem } from "~/client/components/ShortcutMenu/types";
+import { cx } from "~/client/utils/cx";
 
 interface Props {
   items?: ShortcutMenuItem[];
@@ -28,7 +28,7 @@ export const ShortcutMenu = ({
             <ContextMenu.Item
               key={title}
               onClick={onClick}
-              className={classNames(
+              className={cx(
                 "prose-sm relative flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none",
                 {
                   primary:
