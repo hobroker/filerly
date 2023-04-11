@@ -1,9 +1,9 @@
 import { type ReactNode, useCallback, useContext, useMemo } from "react";
 import { Pencil, Trash } from "@phosphor-icons/react";
 import { compact } from "ramda-adjunct";
+import { ContextMenu } from "~/client/components/ContextMenu";
+import { type ShortcutMenuItem } from "~/client/components/ContextMenu/types";
 import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
-import { ShortcutMenu } from "~/client/components/ShortcutMenu";
-import { type ShortcutMenuItem } from "~/client/components/ShortcutMenu/types";
 import { clearWindowSelection } from "~/client/utils/clearWindowSelection";
 
 interface Props {
@@ -33,8 +33,8 @@ export const DirectoryTableShortcutMenu = ({ children }: Props) => {
   const onClose = useCallback(() => clearWindowSelection(), []);
 
   return (
-    <ShortcutMenu items={items} onClose={onClose}>
+    <ContextMenu items={items} onClose={onClose}>
       {children}
-    </ShortcutMenu>
+    </ContextMenu>
   );
 };
