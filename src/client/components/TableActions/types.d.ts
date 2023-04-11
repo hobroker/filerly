@@ -1,6 +1,6 @@
 import { type Icon } from "@phosphor-icons/react";
 
-type TableActionVariation = "basic" | "danger";
+type TableActionVariation = "primary" | "danger";
 
 export interface TableAction {
   title: string;
