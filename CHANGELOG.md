@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/hobroker/filerly/compare/v1.2.0...v1.3.0) (2023-04-11)
+
+
+### Features
+
+* add context menu actions ([#11](https://github.com/hobroker/filerly/issues/11)) ([b68ae2c](https://github.com/hobroker/filerly/commit/b68ae2c47198a81ac6004f7cf8b5c32298a6a47f))
+
 # [1.2.0](https://github.com/hobroker/filerly/compare/v1.1.0...v1.2.0) (2023-04-10)
 
 
