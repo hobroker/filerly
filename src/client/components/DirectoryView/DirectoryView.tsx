@@ -9,11 +9,11 @@ interface Props {
 }
 
 export const DirectoryView = ({ path }: Props) => {
-  const { data, error, isLoading } = api.fs.ls.useQuery({ path });
+  const { data, error, isLoading, refetch } = api.fs.ls.useQuery({ path });
 
   return (
     <ToastProvider>
-      <DirectoryProvider path={path}>
+      <DirectoryProvider path={path} refetch={refetch}>
         <div className="p-2">
           <Breadcrumbs path={path} />
           <DirectoryTable
