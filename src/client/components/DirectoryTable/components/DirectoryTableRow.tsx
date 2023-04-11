@@ -1,11 +1,11 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
 import { flexRender, type Row } from "@tanstack/react-table";
-import classNames from "classnames";
 import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/contexts/DirectoryContext";
 import { clearWindowSelection } from "~/client/utils/clearWindowSelection";
+import { cx } from "~/client/utils/cx";
 import { mapObject } from "~/client/utils/mapObject";
 import { range } from "~/client/utils/range";
 
@@ -77,7 +77,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
 
   return (
     <tr
-      className={classNames("cursor-default border-b", {
+      className={cx("cursor-default border-b", {
         "bg-primary-100": row.getIsSelected(),
         "hover:bg-base-100": !row.getIsSelected(),
       })}

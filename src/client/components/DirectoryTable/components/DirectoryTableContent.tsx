@@ -1,6 +1,5 @@
 import { type MouseEvent, useContext, useRef } from "react";
 import { flexRender } from "@tanstack/react-table";
-import classNames from "classnames";
 import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryTable/columns";
 import { DirectoryTableRow } from "~/client/components/DirectoryTable/components/DirectoryTableRow";
 import { DirectoryTableShortcutMenu } from "~/client/components/DirectoryTable/components/DirectoryTableShortcutMenu";
@@ -8,6 +7,7 @@ import { LoadingState } from "~/client/components/DirectoryTable/components/Load
 import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
 import { type MetaType } from "~/client/components/DirectoryTable/types";
 import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
+import { cx } from "~/client/utils/cx";
 import { findParentElement } from "~/client/utils/findParentElement";
 
 interface Props {
@@ -42,7 +42,7 @@ export const DirectoryTableContent = ({
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
-                className={classNames(
+                className={cx(
                   "prose-sm h-8 p-0 first:rounded-bl-md last:rounded-br-md",
                   (header.column.columnDef.meta as MetaType)?.className
                 )}
