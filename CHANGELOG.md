@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/hobroker/filerly/compare/v1.4.0...v1.5.0) (2023-04-11)
+
+
+### Features
+
+* replace headlessui Menu with radix DropdownMenu ([#12](https://github.com/hobroker/filerly/issues/12)) ([d1b10ff](https://github.com/hobroker/filerly/commit/d1b10ff0587470a78569db3226de5b5966d11cc1))
+
 # [1.4.0](https://github.com/hobroker/filerly/compare/v1.3.0...v1.4.0) (2023-04-11)
 
 
