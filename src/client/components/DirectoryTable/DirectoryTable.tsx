@@ -1,5 +1,5 @@
+import { DirectoryTableContent } from "~/client/components/DirectoryTable/components/DirectoryTableContent";
 import { DirectoryTableProvider } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
-import { DirectoryTableContent } from "~/client/components/DirectoryTable/DirectoryTableContent";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 
 interface Props {

@@ -18,7 +18,7 @@ export const Checkbox = ({ indeterminate, className, ...rest }: Props) => {
       ref={ref}
       type="checkbox"
       className={classNames(
-        "rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500",
+        "rounded border-base-300 bg-base-100 text-primary-500 focus:ring-2 focus:ring-blue-500",
         className
       )}
       {...rest}

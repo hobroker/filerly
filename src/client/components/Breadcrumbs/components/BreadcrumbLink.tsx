@@ -8,7 +8,7 @@ interface Props {
 
 export const BreadcrumbLink = ({ title, path }: Props) => {
   return (
-    <Link href={path.join("/")} className="text-sm hover:underline">
+    <Link href={path.join("/")} className="prose-sm hover:underline">
       {title}
     </Link>
   );

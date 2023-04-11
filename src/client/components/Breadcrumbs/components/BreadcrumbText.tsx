@@ -5,5 +5,5 @@ interface Props {
 }
 
 export const BreadcrumbText = ({ title }: Props) => {
-  return <span className="text-sm font-bold">{title}</span>;
+  return <span className="prose-sm font-bold">{title}</span>;
 };
