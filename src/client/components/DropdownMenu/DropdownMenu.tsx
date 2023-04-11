@@ -1,29 +1,29 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
-import { type TableAction } from "~/client/components/Menu/types";
+import { type TableAction } from "~/client/components/DropdownMenu/types";
 
 interface Props {
   items: TableAction[];
 }
 
-export const Menu = ({ items }: Props) => {
+export const DropdownMenu = ({ items }: Props) => {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+    <RadixDropdownMenu.Root>
+      <RadixDropdownMenu.Trigger asChild>
         <button>
           <HamburgerMenuIcon />
         </button>
-      </DropdownMenu.Trigger>
+      </RadixDropdownMenu.Trigger>
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
+      <RadixDropdownMenu.Portal>
+        <RadixDropdownMenu.Content
           className="w-32 rounded bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5"
           align="end"
           sideOffset={5}
         >
           {items.map(({ title, icon: Icon, onClick, variation }) => (
-            <DropdownMenu.Item
+            <RadixDropdownMenu.Item
               key={title}
               onClick={onClick}
               className={classNames(
@@ -38,11 +38,11 @@ export const Menu = ({ items }: Props) => {
             >
               <Icon size={16} />
               {title}
-            </DropdownMenu.Item>
+            </RadixDropdownMenu.Item>
           ))}
-          <DropdownMenu.Arrow className="fill-white" />
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+          <RadixDropdownMenu.Arrow className="fill-white" />
+        </RadixDropdownMenu.Content>
+      </RadixDropdownMenu.Portal>
+    </RadixDropdownMenu.Root>
   );
 };

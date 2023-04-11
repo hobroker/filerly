@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from "react";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import { type ShortcutMenuItem } from "~/client/components/ShortcutMenu/types";
+import * as RadixContextMenu from "@radix-ui/react-context-menu";
+import { type ShortcutMenuItem } from "~/client/components/ContextMenu/types";
 import { cx } from "~/client/utils/cx";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   onClose?: () => void;
 }
 
-export const ShortcutMenu = ({
+export const ContextMenu = ({
   children,
   onOpen,
   onClose,
@@ -18,14 +18,14 @@ export const ShortcutMenu = ({
   if (!items?.length) return <>children</>;
 
   return (
-    <ContextMenu.Root
+    <RadixContextMenu.Root
       onOpenChange={(open: boolean) => (open ? onOpen?.() : onClose?.())}
     >
-      <ContextMenu.Trigger asChild>{children}</ContextMenu.Trigger>
-      <ContextMenu.Portal>
-        <ContextMenu.Content className="w-32 rounded bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5">
+      <RadixContextMenu.Trigger asChild>{children}</RadixContextMenu.Trigger>
+      <RadixContextMenu.Portal>
+        <RadixContextMenu.Content className="w-32 rounded bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5">
           {items.map(({ title, icon: Icon, variation, onClick }) => (
-            <ContextMenu.Item
+            <RadixContextMenu.Item
               key={title}
               onClick={onClick}
               className={cx(
@@ -40,10 +40,10 @@ export const ShortcutMenu = ({
             >
               <Icon size={16} />
               {title}
-            </ContextMenu.Item>
+            </RadixContextMenu.Item>
           ))}
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    </ContextMenu.Root>
+        </RadixContextMenu.Content>
+      </RadixContextMenu.Portal>
+    </RadixContextMenu.Root>
   );
 };
