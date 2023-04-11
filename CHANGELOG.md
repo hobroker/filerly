@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/hobroker/filerly/compare/v1.3.0...v1.4.0) (2023-04-11)
+
+
+### Features
+
+* add tailwind-merge ([#13](https://github.com/hobroker/filerly/issues/13)) ([60fa58f](https://github.com/hobroker/filerly/commit/60fa58f84655090e05495a021ec0b2ebfe9c8511))
+
 # [1.3.0](https://github.com/hobroker/filerly/compare/v1.2.0...v1.3.0) (2023-04-11)
 
 
