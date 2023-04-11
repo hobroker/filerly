@@ -1,5 +1,4 @@
 const colors = require("tailwindcss/colors");
-const { omitBy } = require("ramda-adjunct");
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -7,17 +6,7 @@ const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      ...omitBy(
-        (_, key) =>
-          [
-            "lightBlue",
-            "warmGray",
-            "trueGray",
-            "coolGray",
-            "blueGray",
-          ].includes(key),
-        colors
-      ),
+      ...colors,
       base: colors.gray,
       primary: colors.blue,
       danger: colors.red,

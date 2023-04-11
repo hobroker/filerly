@@ -10,10 +10,9 @@ export const DropdownMenuContent = forwardRef(
   ({ className, as: As = Content, ...rest }: Props, ref) => (
     <As
       className={classNames(
-        "w-32 rounded bg-white p-1 shadow-lg ring-1 ring-black ring-opacity-5",
+        "w-32 rounded bg-base-100 p-1 shadow-lg ring-1 ring-base-900 ring-opacity-5",
         className
       )}
-      align="end"
       {...{ ...rest, ref }}
     />
   )

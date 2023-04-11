@@ -1,5 +1,5 @@
+import { List } from "@phosphor-icons/react";
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { DropdownMenuContent } from "~/client/components/DropdownMenu/components/DropdownMenuContent";
 import {
   DropdownMenuItem,
@@ -15,7 +15,7 @@ export const DropdownMenu = ({ items }: Props) => {
     <RadixDropdownMenu.Root>
       <RadixDropdownMenu.Trigger asChild>
         <button>
-          <HamburgerMenuIcon />
+          <List />
         </button>
       </RadixDropdownMenu.Trigger>
 
