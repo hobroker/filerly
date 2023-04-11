@@ -1,14 +1,13 @@
 import { type MouseEvent, useContext, useRef } from "react";
 import { flexRender } from "@tanstack/react-table";
-import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryTable/columns";
-import { DirectoryTableRow } from "~/client/components/DirectoryTable/components/DirectoryTableRow";
-import { DirectoryTableShortcutMenu } from "~/client/components/DirectoryTable/components/DirectoryTableShortcutMenu";
-import { LoadingState } from "~/client/components/DirectoryTable/components/LoadingState";
-import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
-import { type MetaType } from "~/client/components/DirectoryTable/types";
+import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryView/components/DirectoryTable/columns";
+import { DirectoryTableContextMenu } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableContextMenu";
+import { DirectoryTableRow } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableRow";
+import { LoadingState } from "~/client/components/DirectoryView/components/DirectoryTable/components/LoadingState";
+import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
+import { type MetaType } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
-import { cx } from "~/client/utils/cx";
-import { findParentElement } from "~/client/utils/findParentElement";
+import { cx, findParentElement } from "~/client/utils";
 
 interface Props {
   isErrored?: boolean;
@@ -56,7 +55,7 @@ export const DirectoryTableContent = ({
           </tr>
         ))}
       </thead>
-      <DirectoryTableShortcutMenu>
+      <DirectoryTableContextMenu>
         <tbody className="text-base-700" onContextMenu={onContextMenu}>
           {isLoading || isErrored ? (
             <tr>
@@ -70,7 +69,7 @@ export const DirectoryTableContent = ({
               .rows.map((row) => <DirectoryTableRow key={row.id} row={row} />)
           )}
         </tbody>
-      </DirectoryTableShortcutMenu>
+      </DirectoryTableContextMenu>
     </table>
   );
 };

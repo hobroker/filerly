@@ -1,13 +1,10 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
 import { flexRender, type Row } from "@tanstack/react-table";
-import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
-import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
-import { DirectoryContext } from "~/client/contexts/DirectoryContext";
-import { clearWindowSelection } from "~/client/utils/clearWindowSelection";
-import { cx } from "~/client/utils/cx";
-import { mapObject } from "~/client/utils/mapObject";
-import { range } from "~/client/utils/range";
+import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
+import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
+import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
+import { clearWindowSelection, cx, mapObject, range } from "~/client/utils";
 
 interface Props {
   row: Row<DirectoryTableRowData>;

@@ -5,10 +5,10 @@ import {
   type Table,
 } from "@tanstack/react-table";
 import { Checkbox } from "~/client/components/Checkbox";
-import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
-import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
-import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
+import { FileIcon } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileIcon";
+import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { DropdownMenu } from "~/client/components/DropdownMenu/DropdownMenu";
+import { toFormattedDateOrTime } from "~/client/utils";
 import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
 
 const columnHelper = createColumnHelper<DirectoryTableRowData>();
@@ -64,7 +64,9 @@ export const DIRECTORY_TABLE_COLUMNS = [
   }),
   columnHelper.accessor("lastModified", {
     cell: (info) => (
-      <span className="prose-sm pr-2">{toFormattedDate(info.getValue())}</span>
+      <span className="prose-sm pr-2">
+        {toFormattedDateOrTime(info.getValue())}
+      </span>
     ),
     header: () => "Last modified",
     meta: { className: "w-28" },

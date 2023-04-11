@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const toFormattedDate = (ms: number): string => {
+export const toFormattedDateOrTime = (ms: number): string => {
   const dateObj = DateTime.fromMillis(ms);
   const today = DateTime.local();
   if (dateObj.hasSame(today, "day")) {

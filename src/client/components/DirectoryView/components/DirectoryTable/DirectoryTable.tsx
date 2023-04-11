@@ -1,6 +1,6 @@
-import { DirectoryTableContent } from "~/client/components/DirectoryTable/components/DirectoryTableContent";
-import { DirectoryTableProvider } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
-import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
+import { DirectoryTableContent } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableContent";
+import { DirectoryTableProvider } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
+import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 
 interface Props {
   data?: DirectoryTableRowData[];
