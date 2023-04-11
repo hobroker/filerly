@@ -8,7 +8,7 @@ import { Checkbox } from "~/client/components/Checkbox";
 import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
 import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
-import { TableActions } from "~/client/components/TableActions/TableActions";
+import { Menu } from "~/client/components/Menu/Menu";
 import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
 
 const columnHelper = createColumnHelper<DirectoryTableRowData>();
@@ -72,7 +72,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
   {
     id: "actions",
     cell: () => (
-      <TableActions
+      <Menu
         items={[
           { title: "Delete", icon: Trash, variation: "danger" },
           { title: "Edit", icon: Pencil },
