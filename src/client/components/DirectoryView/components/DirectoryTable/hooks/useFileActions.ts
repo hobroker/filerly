@@ -6,7 +6,8 @@ import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/comp
 import { useRemoveFiles } from "~/client/hooks/actions/useRemoveFiles";
 
 export const useFileActions = (): DropdownMenuItemType[] => {
-  const { paths, isOneSelected } = useSelectedRows();
+  const { paths } = useSelectedRows();
+  const isOneSelected = paths.length === 1;
   const onSuccess = useOnSuccess();
   const remove = useRemoveFiles({ onSuccess });
 

@@ -1,4 +1,5 @@
-import { rm, rmdir, stat } from "fs/promises";
+import { rm, stat } from "fs/promises";
+import { rimraf } from "rimraf";
 
 export const removeFiles = async (paths: string[]) => {
   const result = [];
@@ -6,9 +7,7 @@ export const removeFiles = async (paths: string[]) => {
     try {
       const stats = await stat(path);
       if (stats.isDirectory()) {
-        await rmdir(path, {
-          recursive: true,
-        });
+        await rimraf(path);
       } else {
         await rm(path);
       }

@@ -1,6 +1,5 @@
 import { useCallback } from "react";
-import { api } from "~/client/utils";
-import { type RouterInputs } from "~/client/utils/api";
+import { api, type RouterInputs } from "~/client/api";
 
 interface Props {
   onSuccess?: () => void;

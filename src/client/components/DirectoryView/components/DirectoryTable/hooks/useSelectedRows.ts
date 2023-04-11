@@ -5,18 +5,22 @@ import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
 export const useSelectedRows = () => {
   const { table, rowSelection } = useContext(DirectoryTableContext);
   const { path } = useContext(DirectoryContext);
-  const selectedAbsolutePaths = useMemo(() => {
-    return Object.keys(rowSelection)
-      .map((id) => table.getRow(id).original.name)
-      .map((filename) => `/${[...path, filename].join("/")}`);
-  }, [path, rowSelection, table]);
+  const rows = useMemo(() => {
+    return Object.keys(rowSelection).map((id) => table.getRow(id));
+  }, [rowSelection, table]);
+  const paths = useMemo(() => {
+    return rows.map(
+      ({ original: { name } }) => `/${[...path, name].join("/")}`
+    );
+  }, [path, rows]);
   const isOneSelected = useMemo(
     () => Object.values(rowSelection).length === 1,
     [rowSelection]
   );
 
   return {
-    paths: selectedAbsolutePaths,
+    paths,
+    rows,
     isOneSelected,
   };
 };
