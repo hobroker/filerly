@@ -3,14 +3,14 @@ import { Pencil, Trash } from "@phosphor-icons/react";
 import { compact } from "ramda-adjunct";
 import { ContextMenu } from "~/client/components/ContextMenu";
 import { type ShortcutMenuItem } from "~/client/components/ContextMenu/types";
-import { DirectoryTableContext } from "~/client/components/DirectoryTable/contexts/DirectoryContext";
+import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts/DirectoryTableContext";
 import { clearWindowSelection } from "~/client/utils/clearWindowSelection";
 
 interface Props {
   children: ReactNode;
 }
 
-export const DirectoryTableShortcutMenu = ({ children }: Props) => {
+export const DirectoryTableContextMenu = ({ children }: Props) => {
   const { rowSelection } = useContext(DirectoryTableContext);
 
   const items: ShortcutMenuItem[] = useMemo(() => {

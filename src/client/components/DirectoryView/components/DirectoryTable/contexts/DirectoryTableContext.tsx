@@ -5,8 +5,8 @@ import {
   type Table,
   useReactTable,
 } from "@tanstack/react-table";
-import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryTable/columns";
-import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
+import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/DirectoryView/components/DirectoryTable/columns";
+import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 
 interface Props {
   children: ReactNode;

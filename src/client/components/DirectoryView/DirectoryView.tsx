@@ -1,6 +1,6 @@
 import { Breadcrumbs } from "~/client/components/Breadcrumbs/Breadcrumbs";
-import { DirectoryTable } from "~/client/components/DirectoryTable";
-import { DirectoryProvider } from "~/client/contexts/DirectoryContext";
+import { DirectoryTable } from "~/client/components/DirectoryView/components/DirectoryTable";
+import { DirectoryProvider } from "~/client/components/DirectoryView/contexts/DirectoryContext";
 import { api } from "~/client/utils/api";
 
 interface Props {

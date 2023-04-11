@@ -1,4 +1,4 @@
-import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
+import { FileIcon } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileIcon";
 
 interface Props {
   filename: string;

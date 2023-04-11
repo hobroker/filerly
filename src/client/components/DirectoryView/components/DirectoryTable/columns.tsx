@@ -5,9 +5,9 @@ import {
   type Table,
 } from "@tanstack/react-table";
 import { Checkbox } from "~/client/components/Checkbox";
-import { FileIcon } from "~/client/components/DirectoryTable/components/FileIcon";
-import { type DirectoryTableRowData } from "~/client/components/DirectoryTable/types";
-import { toFormattedDate } from "~/client/components/DirectoryTable/utils/toFormattedDate";
+import { FileIcon } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileIcon";
+import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
+import { toFormattedDate } from "~/client/components/DirectoryView/components/DirectoryTable/utils/toFormattedDate";
 import { DropdownMenu } from "~/client/components/DropdownMenu/DropdownMenu";
 import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
 
