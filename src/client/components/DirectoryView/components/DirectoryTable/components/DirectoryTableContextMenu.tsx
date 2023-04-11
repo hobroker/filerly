@@ -3,8 +3,8 @@ import { Pencil, Trash } from "@phosphor-icons/react";
 import { compact } from "ramda-adjunct";
 import { ContextMenu } from "~/client/components/ContextMenu";
 import { type ShortcutMenuItem } from "~/client/components/ContextMenu/types";
-import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts/DirectoryTableContext";
-import { clearWindowSelection } from "~/client/utils/clearWindowSelection";
+import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
+import { clearWindowSelection } from "~/client/utils";
 
 interface Props {
   children: ReactNode;

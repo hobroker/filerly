@@ -1,5 +1,5 @@
 import { type HTMLProps, useEffect, useRef } from "react";
-import { cx } from "~/client/utils/cx";
+import { cx } from "~/client/utils";
 
 interface Props extends HTMLProps<HTMLInputElement> {
   indeterminate?: boolean;

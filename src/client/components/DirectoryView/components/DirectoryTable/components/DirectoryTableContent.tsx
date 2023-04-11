@@ -4,11 +4,10 @@ import { DIRECTORY_TABLE_COLUMNS as columns } from "~/client/components/Director
 import { DirectoryTableContextMenu } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableContextMenu";
 import { DirectoryTableRow } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableRow";
 import { LoadingState } from "~/client/components/DirectoryView/components/DirectoryTable/components/LoadingState";
-import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts/DirectoryTableContext";
+import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { type MetaType } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { useOnClickOutside } from "~/client/hooks/useOnClickOutside";
-import { cx } from "~/client/utils/cx";
-import { findParentElement } from "~/client/utils/findParentElement";
+import { cx, findParentElement } from "~/client/utils";
 
 interface Props {
   isErrored?: boolean;
