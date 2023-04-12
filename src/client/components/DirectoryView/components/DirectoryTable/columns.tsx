@@ -1,14 +1,13 @@
-import { Pencil, Trash } from "@phosphor-icons/react";
 import {
   createColumnHelper,
   type Row,
   type Table,
 } from "@tanstack/react-table";
 import { Checkbox } from "~/client/components/Checkbox";
+import { DirectoryTableDropdownMenu } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableDropdownMenu";
 import { FileIcon } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileIcon";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { toFormattedDateOrTime } from "~/client/components/DirectoryView/components/DirectoryTable/utils";
-import { DropdownMenu } from "~/client/components/DropdownMenu/DropdownMenu";
 import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
 
 const columnHelper = createColumnHelper<DirectoryTableRowData>();
@@ -73,13 +72,8 @@ export const DIRECTORY_TABLE_COLUMNS = [
   }),
   {
     id: "actions",
-    cell: () => (
-      <DropdownMenu
-        items={[
-          { title: "Delete", icon: Trash, variation: "danger" },
-          { title: "Edit", icon: Pencil },
-        ]}
-      />
+    cell: ({ row }: { row: Row<DirectoryTableRowData> }) => (
+      <DirectoryTableDropdownMenu rowId={row.id} />
     ),
     meta: { className: "w-6" },
   },

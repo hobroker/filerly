@@ -8,11 +8,15 @@ import {
 
 interface Props {
   items: DropdownMenuItemType[];
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 
-export const DropdownMenu = ({ items }: Props) => {
+export const DropdownMenu = ({ items, onOpen, onClose }: Props) => {
   return (
-    <RadixDropdownMenu.Root>
+    <RadixDropdownMenu.Root
+      onOpenChange={(open: boolean) => (open ? onOpen?.() : onClose?.())}
+    >
       <RadixDropdownMenu.Trigger asChild>
         <button>
           <List />
@@ -28,7 +32,7 @@ export const DropdownMenu = ({ items }: Props) => {
               {...item}
             />
           ))}
-          <RadixDropdownMenu.Arrow className="fill-white" />
+          <RadixDropdownMenu.Arrow className="fill-base-100" />
         </DropdownMenuContent>
       </RadixDropdownMenu.Portal>
     </RadixDropdownMenu.Root>

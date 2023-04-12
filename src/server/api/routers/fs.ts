@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { readDirectory } from "~/server/utils/readDirectory";
@@ -14,7 +15,11 @@ export const fsRouter = createTRPCRouter({
   remove: publicProcedure
     .input(z.object({ paths: z.string().array() }))
     .mutation(async ({ input: { paths } }) => {
-      if (!paths.length) throw new Error("No paths provided");
+      if (!paths.length)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No paths provided",
+        });
 
       return removeFiles(paths);
     }),

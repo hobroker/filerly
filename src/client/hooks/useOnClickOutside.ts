@@ -6,7 +6,14 @@ export function useOnClickOutside<
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       const target = event.target as Node;
-      if (ref.current && !ref.current.contains(target)) {
+      console.log("target", target);
+      if (
+        ref.current &&
+        !ref.current.contains(target) &&
+        !document
+          .querySelector("[data-radix-popper-content-wrapper]")
+          ?.contains(target)
+      ) {
         setTimeout(() => onClickOutside(target), 0);
       }
     },
@@ -14,10 +21,10 @@ export function useOnClickOutside<
   );
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
+    document.addEventListener("mousedown", handleClickOutside, true);
 
     return () => {
-      document.removeEventListener("click", handleClickOutside, true);
+      document.removeEventListener("mousedown", handleClickOutside, true);
     };
   }, [handleClickOutside]);
 }

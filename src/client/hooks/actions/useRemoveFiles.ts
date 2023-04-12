@@ -1,5 +1,4 @@
-import { useCallback } from "react";
-import { api, type RouterInputs } from "~/client/api";
+import { api } from "~/client/api";
 
 interface Props {
   onSuccess?: () => void;
@@ -7,15 +6,13 @@ interface Props {
 }
 
 export const useRemoveFiles = ({ onSuccess, onError }: Props) => {
-  const { mutate, data, error } = api.fs.remove.useMutation({
+  const { mutate, data } = api.fs.remove.useMutation({
     onSuccess,
     onError,
   });
 
-  console.log("data", data, error);
-
-  return useCallback(
-    (variables: RouterInputs["fs"]["remove"]) => mutate(variables),
-    [mutate]
-  );
+  return {
+    mutate,
+    data,
+  };
 };
