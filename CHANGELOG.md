@@ -1,3 +1,15 @@
+# [1.7.0](https://github.com/hobroker/filerly/compare/v1.6.0...v1.7.0) (2023-04-13)
+
+
+### Bug Fixes
+
+* use lint-staged in pre-commit ([#19](https://github.com/hobroker/filerly/issues/19)) ([2ab8eec](https://github.com/hobroker/filerly/commit/2ab8eecc58f4b8d17858998131d6736557ea3c38))
+
+
+### Features
+
+* add delete action ([#16](https://github.com/hobroker/filerly/issues/16)) ([f8d54d7](https://github.com/hobroker/filerly/commit/f8d54d78e49583e4dec1309bb69b668c4e585f3b))
+
 # [1.6.0](https://github.com/hobroker/filerly/compare/v1.5.0...v1.6.0) (2023-04-13)
 
 
