@@ -33,7 +33,7 @@ function ToastProvider({ children }: Props) {
         showToast,
       }}
     >
-      <RadixToast.Provider swipeDirection="right" duration={200000}>
+      <RadixToast.Provider swipeDirection="right" duration={3000}>
         {children}
 
         {toasts.map((toast) => (

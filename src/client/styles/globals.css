@@ -7,7 +7,5 @@ html {
 }
 
 .prose-xs {
-  @apply prose-sm;
-  font-size: 0.75rem;
-  line-height: 1.25rem;
+  @apply prose-sm text-xs leading-4;
 }
