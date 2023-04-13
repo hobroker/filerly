@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/hobroker/filerly/compare/v1.5.0...v1.6.0) (2023-04-13)
+
+
+### Features
+
+* @radix-ui/react-toast ([#18](https://github.com/hobroker/filerly/issues/18)) ([6a47847](https://github.com/hobroker/filerly/commit/6a47847b0e6d46570dc5f1041845c0b6c39f6d54))
+
 # [1.5.0](https://github.com/hobroker/filerly/compare/v1.4.0...v1.5.0) (2023-04-11)
 
 
