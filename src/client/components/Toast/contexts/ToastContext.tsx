@@ -1,9 +1,13 @@
-import { createContext, type ReactNode, useState } from "react";
+import { createContext, type ReactNode, useCallback, useState } from "react";
 import * as RadixToast from "@radix-ui/react-toast";
-import { reject } from "ramda";
+import { compose, equals, prop, reject } from "ramda";
 import { noop } from "ramda-adjunct";
 import { Toast } from "~/client/components/Toast/components/Toast";
-import { type ToastType } from "~/client/components/Toast/types";
+import {
+  type ToastType,
+  type ToastTypeWithId,
+} from "~/client/components/Toast/types";
+import { uuid } from "~/client/utils/uuid";
 
 interface Props {
   children: ReactNode;
@@ -18,10 +22,10 @@ const ToastContext = createContext<ContextType>({
 });
 
 function ToastProvider({ children }: Props) {
-  const [toasts, setToasts] = useState<ToastType[]>([]);
-  const showToast = (toast: ToastType) => {
-    setToasts((toasts) => [...toasts, toast]);
-  };
+  const [toasts, setToasts] = useState<ToastTypeWithId[]>([]);
+  const showToast = useCallback((toast: ToastType) => {
+    setToasts((prev) => [...prev, { ...toast, id: uuid() }]);
+  }, []);
 
   return (
     <ToastContext.Provider
@@ -29,7 +33,7 @@ function ToastProvider({ children }: Props) {
         showToast,
       }}
     >
-      <RadixToast.Provider swipeDirection="right" duration={40000}>
+      <RadixToast.Provider swipeDirection="right" duration={200000}>
         {children}
 
         {toasts.map((toast) => (
@@ -37,11 +41,11 @@ function ToastProvider({ children }: Props) {
             key={toast.title}
             {...toast}
             onOpenChange={() =>
-              setToasts(reject((t: ToastType) => t.title === toast.title))
+              setToasts(reject(compose(equals(toast.id), prop("id"))))
             }
           />
         ))}
-        <RadixToast.Viewport className="fixed bottom-0 right-0 z-50 m-0 flex w-80 max-w-full flex-col gap-2 p-2" />
+        <RadixToast.Viewport className="fixed bottom-0 right-0 z-50 m-0 flex max-h-full w-80 max-w-full flex-col gap-2 overflow-y-auto p-2" />
       </RadixToast.Provider>
     </ToastContext.Provider>
   );

@@ -5,3 +5,9 @@
 html {
   @apply text-base-800;
 }
+
+.prose-xs {
+  @apply prose-sm;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}

@@ -15,22 +15,22 @@ export const Toast = ({
   return (
     <RadixToast.Root
       className={cx(
-        "flex items-center gap-x-4 rounded bg-white p-1 shadow-xl ring-1 ring-base-900 ring-opacity-5",
+        "flex items-center gap-x-4 rounded bg-white bg-opacity-95 p-1 text-white shadow-xl ring-1 ring-base-900 ring-opacity-5",
         {
-          error: "bg-danger-400 text-white",
-          success: "bg-success-400 text-white",
-          warning: "bg-warning-400 text-white",
-          info: "bg-base-400 text-white",
+          error: "bg-danger-400",
+          success: "bg-success-400",
+          warning: "bg-warning-400",
+          info: "bg-base-400",
         }[variation]
       )}
       {...rest}
     >
-      <div className="prose-sm">
-        <RadixToast.Title>
-          <span>{title}</span>
+      <div>
+        <RadixToast.Title asChild className="prose-sm">
+          <p>{title}</p>
         </RadixToast.Title>
-        <RadixToast.Description asChild>
-          <span>{subtitle}</span>
+        <RadixToast.Description asChild className="prose-xs">
+          <p>{subtitle}</p>
         </RadixToast.Description>
       </div>
       <RadixToast.Action asChild altText="Close">

@@ -5,3 +5,7 @@ export interface ToastType {
   subtitle?: string;
   variation?: ToastVariation;
 }
+
+export interface ToastTypeWithId extends ToastType {
+  id: string;
+}
