@@ -1,8 +1,12 @@
 import { rm, stat } from "fs/promises";
 import { rimraf } from "rimraf";
+import { type FileActionResult, type FileActionsGroup } from "~/common/types";
+import { groupFileActionResults } from "~/server/utils/groupFileActionResults";
 
-export const removeFiles = async (paths: string[]) => {
-  const result = [];
+export const removeFiles = async (
+  paths: string[]
+): Promise<FileActionsGroup> => {
+  const result: FileActionResult[] = [];
   for (const path of paths) {
     try {
       const stats = await stat(path);
@@ -11,11 +15,11 @@ export const removeFiles = async (paths: string[]) => {
       } else {
         await rm(path);
       }
-      result.push({ path, success: true });
+      result.push({ path });
     } catch (error) {
-      result.push({ path, error, success: false });
+      result.push({ path, error: error as Error });
     }
   }
 
-  return result;
+  return groupFileActionResults(result);
 };

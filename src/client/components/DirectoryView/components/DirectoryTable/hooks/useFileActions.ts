@@ -3,8 +3,8 @@ import { Pencil, Trash } from "@phosphor-icons/react";
 import { compact } from "ramda-adjunct";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
+import { useRemoveFiles } from "~/client/components/DirectoryView/hooks";
 import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/components/DropdownMenuItem";
-import { useRemoveFiles } from "~/client/hooks/actions/useRemoveFiles";
 
 export const useFileActions = (): DropdownMenuItemType[] => {
   const { paths } = useSelectedRows();

@@ -1,0 +1,1 @@
+export { useRemoveFiles } from "./useRemoveFiles";
