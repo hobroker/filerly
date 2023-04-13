@@ -7,8 +7,8 @@ import {
 import { Checkbox } from "~/client/components/Checkbox";
 import { FileIcon } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileIcon";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
+import { toFormattedDateOrTime } from "~/client/components/DirectoryView/components/DirectoryTable/utils";
 import { DropdownMenu } from "~/client/components/DropdownMenu/DropdownMenu";
-import { toFormattedDateOrTime } from "~/client/utils";
 import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
 
 const columnHelper = createColumnHelper<DirectoryTableRowData>();

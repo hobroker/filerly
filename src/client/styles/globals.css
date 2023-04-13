@@ -5,3 +5,7 @@
 html {
   @apply text-base-800;
 }
+
+.prose-xs {
+  @apply prose-sm text-xs leading-4;
+}
