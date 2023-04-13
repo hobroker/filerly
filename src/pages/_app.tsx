@@ -1,7 +1,7 @@
 import { type AppType } from "next/app";
 import Head from "next/head";
+import { api } from "~/client/api";
 import { mainFont } from "~/client/fonts";
-import { api } from "~/client/utils";
 import "~/client/styles/globals.css";
 
 const App: AppType = ({ Component, pageProps }) => {

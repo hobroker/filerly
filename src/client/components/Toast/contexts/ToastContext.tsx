@@ -38,14 +38,14 @@ function ToastProvider({ children }: Props) {
 
         {toasts.map((toast) => (
           <Toast
-            key={toast.title}
+            key={toast.id}
             {...toast}
             onOpenChange={() =>
               setToasts(reject(compose(equals(toast.id), prop("id"))))
             }
           />
         ))}
-        <RadixToast.Viewport className="fixed bottom-0 right-0 z-50 m-0 flex max-h-full w-80 max-w-full flex-col gap-2 overflow-y-auto p-2" />
+        <RadixToast.Viewport className="fixed bottom-0 right-0 z-50 m-0 flex max-h-full w-80 max-w-full flex-col gap-2 overflow-hidden overflow-y-auto p-2" />
       </RadixToast.Provider>
     </ToastContext.Provider>
   );

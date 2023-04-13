@@ -1,8 +1,10 @@
-export type ToastVariation = "success" | "error" | "warning" | "info";
+import { type ReactNode } from "react";
+
+export type ToastVariation = "success" | "danger" | "warning" | "info";
 
 export interface ToastType {
   title: string;
-  subtitle?: string;
+  subtitle?: ReactNode;
   variation?: ToastVariation;
 }
 

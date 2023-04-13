@@ -1,11 +1,13 @@
 import { type PropsWithChildren } from "react";
 import * as RadixContextMenu from "@radix-ui/react-context-menu";
-import { type ShortcutMenuItem } from "~/client/components/ContextMenu/types";
 import { DropdownMenuContent } from "~/client/components/DropdownMenu/components/DropdownMenuContent";
-import { DropdownMenuItem } from "~/client/components/DropdownMenu/components/DropdownMenuItem";
+import {
+  DropdownMenuItem,
+  type DropdownMenuItemType,
+} from "~/client/components/DropdownMenu/components/DropdownMenuItem";
 
 interface Props {
-  items?: ShortcutMenuItem[];
+  items?: DropdownMenuItemType[];
   onOpen?: () => void;
   onClose?: () => void;
 }

@@ -18,10 +18,10 @@ export const Toast = ({
         "flex flex-col items-start gap-x-2 rounded bg-white bg-opacity-95 p-1 text-white shadow-lg ring-1 ring-base-900 ring-opacity-5",
         "data-[swipe=cancel]:translate-x-0 data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-hide data-[state=open]:animate-slideIn data-[swipe=end]:animate-swipeOut data-[swipe=cancel]:transition-[transform_200ms_ease-out]",
         {
-          error: "bg-danger-400",
-          success: "bg-success-400",
-          warning: "bg-warning-400",
-          info: "bg-base-400",
+          danger: "bg-danger-600",
+          success: "bg-success-600",
+          warning: "bg-warning-600",
+          info: "bg-base-600",
         }[variation]
       )}
       {...rest}
@@ -40,8 +40,8 @@ export const Toast = ({
           </button>
         </RadixToast.Action>
       </div>
-      <RadixToast.Description asChild className="prose-xs">
-        <p>{subtitle}</p>
+      <RadixToast.Description asChild className="prose-xs overflow-x-auto">
+        <div>{subtitle}</div>
       </RadixToast.Description>
     </RadixToast.Root>
   );
