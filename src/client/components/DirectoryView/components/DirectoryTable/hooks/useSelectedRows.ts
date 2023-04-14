@@ -13,14 +13,9 @@ export const useSelectedRows = () => {
       ({ original: { name } }) => `/${[...path, name].join("/")}`
     );
   }, [path, rows]);
-  const isOneSelected = useMemo(
-    () => Object.values(rowSelection).length === 1,
-    [rowSelection]
-  );
 
   return {
     paths,
     rows,
-    isOneSelected,
   };
 };
