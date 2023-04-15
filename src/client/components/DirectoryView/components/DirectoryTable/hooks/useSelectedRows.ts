@@ -13,9 +13,15 @@ export const useSelectedRows = () => {
       ({ original: { name } }) => `/${[...path, name].join("/")}`
     );
   }, [path, rows]);
+  const singlePath = useMemo(() => {
+    if (typeof paths[0] !== "undefined") return undefined;
+
+    return paths[0];
+  }, [paths]);
 
   return {
     paths,
+    singlePath,
     rows,
   };
 };

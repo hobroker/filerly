@@ -1,12 +1,6 @@
-import {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-} from "react";
+import { useContext, useEffect, useRef } from "react";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
-import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
+import { useRenameFileMode } from "~/client/components/DirectoryView/components/DirectoryTable/hooks";
 
 interface Props {
   rowId: string;
@@ -16,27 +10,15 @@ interface Props {
 export const FileName = ({ value, rowId }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const { rowInEditMode } = useContext(DirectoryTableContext);
-  const { refetch } = useContext(DirectoryContext);
-  const [inputValue, setInputValue] = useState(value);
   const isInEditMode = rowInEditMode === rowId;
+  const { inputValue, setInputValue, handleInputKeyDown } = useRenameFileMode({
+    value,
+  });
 
   useEffect(() => {
     if (!isInEditMode || !ref.current) return;
-    ref.current.focus();
+    ref.current.select();
   }, [isInEditMode, value]);
-
-  const onKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      refetch();
-      e.currentTarget.blur();
-    }
-    if (e.key === "Escape") {
-      e.preventDefault();
-      setInputValue(value);
-      e.currentTarget.blur();
-    }
-  };
 
   return isInEditMode ? (
     <input
@@ -44,7 +26,7 @@ export const FileName = ({ value, rowId }: Props) => {
       type="text"
       className="prose-sm h-5 w-full border-0 bg-transparent p-0 pr-2"
       value={inputValue}
-      onKeyDown={onKeyDown}
+      onKeyDown={handleInputKeyDown}
       onChange={(e) => setInputValue(e.target.value)}
     />
   ) : (

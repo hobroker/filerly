@@ -22,7 +22,7 @@ interface ContextType {
   lastSelectionRange: Record<string, boolean>;
   setLastSelectionRange: OnChangeFn<Record<string, boolean>>;
   rowInEditMode: string | undefined;
-  setRowIsInEditMode: OnChangeFn<string | undefined>;
+  setRowInEditMode: OnChangeFn<string | undefined>;
 }
 
 const DirectoryTableContext = createContext<ContextType>({} as ContextType);
@@ -33,7 +33,7 @@ function DirectoryTableProvider({ children, data }: Props) {
   const [lastSelectionRange, setLastSelectionRange] = useState<
     Record<string, boolean>
   >({});
-  const [rowInEditMode, setRowIsInEditMode] = useState<string>();
+  const [rowInEditMode, setRowInEditMode] = useState<string>();
   const table = useReactTable<DirectoryTableRowData>({
     data,
     columns,
@@ -57,7 +57,7 @@ function DirectoryTableProvider({ children, data }: Props) {
         lastSelectionRange,
         setLastSelectionRange,
         rowInEditMode,
-        setRowIsInEditMode,
+        setRowInEditMode,
       }}
     >
       {children}

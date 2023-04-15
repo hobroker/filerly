@@ -21,7 +21,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectedRow,
     lastSelectionRange,
     setLastSelectionRange,
-    setRowIsInEditMode,
+    setRowInEditMode,
   } = useContext(DirectoryTableContext);
   const selectedRowIDs = Object.keys(rowSelection);
   const isOneSelected = selectedRowIDs.length === 1;
@@ -44,7 +44,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
     ) {
       return false;
     }
-    setRowIsInEditMode(row.id);
+    setRowInEditMode(row.id);
 
     return true;
   };
@@ -70,7 +70,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
     const hasShiftKey = event.shiftKey;
     const hasMetaKey = event.metaKey || event.ctrlKey;
 
-    setRowIsInEditMode(undefined);
+    setRowInEditMode(undefined);
     if (!hasShiftKey) {
       setLastSelectedRow(row.id);
     }
