@@ -35,7 +35,7 @@ export const FileNameEdit = ({ value }: Props) => {
       <input
         ref={inputRef}
         type="text"
-        className="prose-sm h-5 border-0 bg-transparent p-0"
+        className="prose-sm h-5 border-0 p-0"
         value={inputValue}
         maxLength={255}
         style={{ width }}
