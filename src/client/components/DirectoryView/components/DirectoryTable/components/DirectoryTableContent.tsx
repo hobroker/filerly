@@ -18,9 +18,7 @@ export const DirectoryTableContent = ({
   isErrored = false,
   isLoading = false,
 }: Props) => {
-  const { table, setRowSelection, rowInEditMode } = useContext(
-    DirectoryTableContext
-  );
+  const { table, setRowSelection } = useContext(DirectoryTableContext);
   const ref = useRef<HTMLTableElement>(null);
   useOnClickOutside<HTMLTableElement>(ref, () => setRowSelection({}));
 
