@@ -1,5 +1,6 @@
+import { basename } from "path";
 import { last } from "ramda";
-import { api } from "~/client/api";
+import { api, type RouterInputs } from "~/client/api";
 import { useToast } from "~/client/components/Toast";
 
 interface Props {
@@ -48,7 +49,13 @@ export const useRenameFile = ({ onSuccess, onError }: Props) => {
   });
 
   return {
-    mutate,
+    mutate: ({ path, newFilename }: RouterInputs["fs"]["rename"]) => {
+      if (basename(path) === newFilename) return;
+      mutate({
+        path,
+        newFilename: newFilename.trim(),
+      });
+    },
     data,
   };
 };

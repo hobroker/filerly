@@ -15,7 +15,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
   const router = useRouter();
   const { path } = useContext(DirectoryContext);
   const {
-    rowSelection,
     setRowSelection,
     lastSelectedRow,
     setLastSelectedRow,
@@ -23,8 +22,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectionRange,
     setRowInEditMode,
   } = useContext(DirectoryTableContext);
-  const selectedRowIDs = Object.keys(rowSelection);
-  const isOneSelected = selectedRowIDs.length === 1;
 
   const onDoubleClick = async () => {
     if (row.original.isDirectory) {
@@ -34,19 +31,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
       await router.push([...path, row.original.name].join("/"));
     }
     console.log("Open the file");
-  };
-
-  const handleRename = (event: MouseEvent<HTMLTableRowElement>): boolean => {
-    const clickedOnFilename =
-      (event.target as HTMLElement)?.dataset?.["column"] === "name";
-    if (
-      !(isOneSelected && selectedRowIDs[0] === row.id && !clickedOnFilename)
-    ) {
-      return false;
-    }
-    setRowInEditMode(row.id);
-
-    return true;
   };
 
   const handleCheckboxChange = (
@@ -65,7 +49,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
 
   const onClick = (event: MouseEvent<HTMLTableRowElement>) => {
     if (handleCheckboxChange(event)) return;
-    if (handleRename(event)) return;
 
     const hasShiftKey = event.shiftKey;
     const hasMetaKey = event.metaKey || event.ctrlKey;
@@ -99,12 +82,13 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectionRange(_lastSelectionRange);
     clearWindowSelection();
   };
+  const isRowSelected = row.getIsSelected();
 
   return (
     <tr
       className={cx("cursor-default border-b", {
-        "bg-primary-100": row.getIsSelected(),
-        "hover:bg-base-100": !row.getIsSelected(),
+        "bg-primary-100": isRowSelected,
+        "hover:bg-base-100": !isRowSelected,
       })}
       data-row-id={row.id}
       onDoubleClick={() => void onDoubleClick()}

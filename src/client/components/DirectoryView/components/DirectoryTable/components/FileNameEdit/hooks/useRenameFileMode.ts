@@ -1,4 +1,9 @@
-import { type KeyboardEvent, useContext, useState } from "react";
+import {
+  type ChangeEvent,
+  type KeyboardEvent,
+  useContext,
+  useState,
+} from "react";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
@@ -12,29 +17,43 @@ export const useRenameFileMode = ({ value }: Props) => {
   const { setRowInEditMode } = useContext(DirectoryTableContext);
   const [inputValue, setInputValue] = useState(value);
   const onSuccess = useOnSuccess();
-  const { paths } = useSelectedRows();
+  const { singlePath } = useSelectedRows();
   const { mutate: rename } = useRenameFile({ onSuccess });
 
-  const handleInputKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
-    if (typeof paths[0] !== "string" || !inputValue.length) return;
+  const submit = () => {
+    if (typeof singlePath !== "string" || !inputValue.length) return;
+    rename({
+      path: singlePath,
+      newFilename: inputValue,
+    });
+    setRowInEditMode(undefined);
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      rename({
-        path: paths[0],
-        newFilename: inputValue,
-      });
-      setRowInEditMode(undefined);
+      submit();
     }
     if (e.key === "Escape") {
       e.preventDefault();
       setInputValue(value);
-      e.currentTarget.blur();
+      setRowInEditMode(undefined);
     }
+  };
+
+  const onBlur = () => {
+    submit();
+  };
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
   return {
     inputValue,
     setInputValue,
-    handleInputKeyDown,
+    onKeyDown,
+    onChange,
+    onBlur,
   };
 };

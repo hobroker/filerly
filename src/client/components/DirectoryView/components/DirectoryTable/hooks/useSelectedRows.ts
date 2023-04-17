@@ -14,7 +14,7 @@ export const useSelectedRows = () => {
     );
   }, [path, rows]);
   const singlePath = useMemo(() => {
-    if (typeof paths[0] !== "undefined") return undefined;
+    if (typeof paths[0] === "undefined") return undefined;
 
     return paths[0];
   }, [paths]);
