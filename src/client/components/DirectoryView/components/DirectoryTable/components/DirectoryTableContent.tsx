@@ -18,9 +18,13 @@ export const DirectoryTableContent = ({
   isErrored = false,
   isLoading = false,
 }: Props) => {
-  const { table, setRowSelection } = useContext(DirectoryTableContext);
+  const { table, setRowSelection, rowInEditMode } = useContext(
+    DirectoryTableContext
+  );
   const ref = useRef<HTMLTableElement>(null);
   useOnClickOutside<HTMLTableElement>(ref, () => setRowSelection({}));
+
+  console.log("rowInEditMode", rowInEditMode);
 
   const onContextMenu = (event: MouseEvent<HTMLTableSectionElement>) => {
     const target = findParentElement<HTMLTableRowElement>(

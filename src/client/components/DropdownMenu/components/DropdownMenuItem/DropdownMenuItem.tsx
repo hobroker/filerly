@@ -19,7 +19,10 @@ export const DropdownMenuItem = ({
   return (
     <As
       key={title}
-      onClick={onClick}
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick?.();
+      }}
       className={classNames(
         "prose-sm flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none",
         {

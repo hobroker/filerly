@@ -18,10 +18,16 @@ export const useSelectedRows = () => {
 
     return paths[0];
   }, [paths]);
+  const singleRow = useMemo(() => {
+    if (typeof rows[0] === "undefined") return undefined;
+
+    return rows[0];
+  }, [rows]);
 
   return {
     paths,
     singlePath,
+    singleRow,
     rows,
   };
 };

@@ -19,7 +19,9 @@ export const FileNameEdit = ({ value }: Props) => {
 
   useEffect(() => {
     if (!inputRef.current) return;
-    inputRef.current?.select();
+    setTimeout(() => {
+      inputRef.current?.select();
+    }, 1);
   }, [value]);
 
   return (

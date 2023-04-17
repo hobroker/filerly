@@ -1,24 +1,24 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Pencil, Trash } from "@phosphor-icons/react";
 import { compact } from "ramda-adjunct";
+import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
 import { useRemoveFiles } from "~/client/components/DirectoryView/hooks";
 import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/components/DropdownMenuItem";
 
 export const useFileActions = (): DropdownMenuItemType[] => {
-  const { paths } = useSelectedRows();
+  const { paths, singleRow } = useSelectedRows();
   const onSuccess = useOnSuccess();
+  const { setRowInEditMode } = useContext(DirectoryTableContext);
   const { mutate: remove } = useRemoveFiles({ onSuccess });
 
   return useMemo(() => {
-    const isOneSelected = paths.length === 1;
-
     return compact([
-      isOneSelected && {
+      singleRow && {
         title: "Rename",
         icon: Pencil,
-        onClick: () => console.log("Rename"),
+        onClick: () => setRowInEditMode(singleRow.id),
       },
       {
         title: "Delete",
@@ -27,5 +27,5 @@ export const useFileActions = (): DropdownMenuItemType[] => {
         onClick: () => remove({ paths }),
       },
     ]);
-  }, [paths, remove]);
+  }, [paths, remove, setRowInEditMode, singleRow]);
 };
