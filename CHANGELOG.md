@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/hobroker/filerly/compare/v1.7.0...v1.8.0) (2023-04-17)
+
+
+### Features
+
+* add rename file action ([#20](https://github.com/hobroker/filerly/issues/20)) ([cd9d691](https://github.com/hobroker/filerly/commit/cd9d691ec2575f7614815faa5920ed6c64894219))
+
 # [1.7.0](https://github.com/hobroker/filerly/compare/v1.6.0...v1.7.0) (2023-04-13)
 
 
