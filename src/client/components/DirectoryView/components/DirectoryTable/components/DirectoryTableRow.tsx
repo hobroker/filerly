@@ -20,7 +20,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectedRow,
     lastSelectionRange,
     setLastSelectionRange,
-    setRowInEditMode,
   } = useContext(DirectoryTableContext);
 
   const onDoubleClick = async () => {
@@ -53,7 +52,6 @@ export const DirectoryTableRow = ({ row }: Props) => {
     const hasShiftKey = event.shiftKey;
     const hasMetaKey = event.metaKey || event.ctrlKey;
 
-    setRowInEditMode(undefined);
     if (!hasShiftKey) {
       setLastSelectedRow(row.id);
     }

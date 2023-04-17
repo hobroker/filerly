@@ -16,24 +16,26 @@ interface Props {
 const isError = (item: FileActionResult): item is FileActionResultError =>
   "error" in item;
 
-const ToastSubtitle = ({ list }: { list: FileActionResult[] }) => (
-  <div className="not-prose">
-    <ol
-      className={cx({
-        "list-decimal": list.length > 1,
-      })}
-    >
-      {list.map((item) => (
-        <li key={item.path} className="prose-xs">
-          <span>{last(item.path.split("/"))}</span>
-          {isError(item) && (
-            <span className="font-semibold">{item.error.message}</span>
-          )}
-        </li>
-      ))}
-    </ol>
-  </div>
-);
+const ToastSubtitle = ({ list }: { list: FileActionResult[] }) => {
+  const isOne = list.length === 1;
+
+  return (
+    <div className={cx({ "not-prose": isOne })}>
+      <ol className="list-decimal">
+        {list.map((item) => (
+          <li key={item.path} className="prose-xs">
+            <span className="flex flex-col">
+              <span className="font-semibold">
+                {last(item.path.split("/"))}
+              </span>
+              {isError(item) && <span>{item.error.message}</span>}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+};
 
 export const useHandleFileActionsGroup = ({
   successTitle,
