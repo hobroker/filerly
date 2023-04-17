@@ -24,8 +24,6 @@ export const DirectoryTableContent = ({
   const ref = useRef<HTMLTableElement>(null);
   useOnClickOutside<HTMLTableElement>(ref, () => setRowSelection({}));
 
-  console.log("rowInEditMode", rowInEditMode);
-
   const onContextMenu = (event: MouseEvent<HTMLTableSectionElement>) => {
     const target = findParentElement<HTMLTableRowElement>(
       "tr",

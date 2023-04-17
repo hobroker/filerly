@@ -20,11 +20,13 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectedRow,
     lastSelectionRange,
     setLastSelectionRange,
+    setRowInEditMode,
   } = useContext(DirectoryTableContext);
 
   const onDoubleClick = async () => {
     if (row.original.isDirectory) {
       setRowSelection({});
+      setRowInEditMode(undefined);
       clearWindowSelection();
 
       await router.push([...path, row.original.name].join("/"));

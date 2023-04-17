@@ -13,6 +13,7 @@ export const FileName = ({ value, rowId }: Props) => {
   );
   const isInEditMode = rowInEditMode === rowId;
   const onClick = (event: MouseEvent<HTMLSpanElement>) => {
+    if (event.detail === 2) return;
     const selectedRowIDs = Object.keys(rowSelection);
     const isOneSelected = selectedRowIDs.length === 1;
     if (isOneSelected && selectedRowIDs[0] === rowId) {
