@@ -8,7 +8,7 @@ interface Props {
 export const FileNameEdit = ({ value }: Props) => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { inputValue, onKeyDown, onChange, onBlur } = useRenameFileMode({
+  const { inputValue, ...events } = useRenameFileMode({
     value,
   });
   const [width, setWidth] = useState<number | undefined>();
@@ -39,9 +39,7 @@ export const FileNameEdit = ({ value }: Props) => {
         value={inputValue}
         maxLength={255}
         style={{ width }}
-        onKeyDown={onKeyDown}
-        onChange={onChange}
-        onBlur={onBlur}
+        {...events}
       />
     </span>
   );

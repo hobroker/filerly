@@ -1,6 +1,7 @@
 import {
   type ChangeEvent,
   type KeyboardEvent,
+  type MouseEvent,
   useContext,
   useState,
 } from "react";
@@ -49,11 +50,20 @@ export const useRenameFileMode = ({ value }: Props) => {
     setInputValue(event.target.value);
   };
 
+  const onDoubleClick = (event: MouseEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+  };
+
+  const onClick = (event: MouseEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+  };
+
   return {
     inputValue,
-    setInputValue,
     onKeyDown,
     onChange,
     onBlur,
+    onClick,
+    onDoubleClick,
   };
 };
