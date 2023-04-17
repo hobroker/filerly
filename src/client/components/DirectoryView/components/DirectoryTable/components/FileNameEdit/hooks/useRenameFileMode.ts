@@ -7,7 +7,7 @@ import {
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
-import { useRenameFile } from "~/client/components/DirectoryView/hooks/useRenameFile";
+import { useRenameFile } from "~/client/components/DirectoryView/hooks";
 
 interface Props {
   value: string;
