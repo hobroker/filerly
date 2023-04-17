@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { readDirectory } from "~/server/utils/readDirectory";
 import { removeFiles } from "~/server/utils/removeFiles";
+import { renameFile } from "~/server/utils/renameFile";
 
 export const fsRouter = createTRPCRouter({
   ls: publicProcedure
@@ -22,5 +23,15 @@ export const fsRouter = createTRPCRouter({
         });
 
       return removeFiles(paths);
+    }),
+  rename: publicProcedure
+    .input(
+      z.object({
+        path: z.string(),
+        newFilename: z.string(),
+      })
+    )
+    .mutation(async ({ input: { path, newFilename } }) => {
+      return renameFile(path, newFilename);
     }),
 });

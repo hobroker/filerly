@@ -1,6 +1,7 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
 import { flexRender, type Row } from "@tanstack/react-table";
+import { not } from "ramda";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
@@ -19,27 +20,40 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectedRow,
     lastSelectionRange,
     setLastSelectionRange,
+    setRowInEditMode,
   } = useContext(DirectoryTableContext);
 
   const onDoubleClick = async () => {
     if (row.original.isDirectory) {
       setRowSelection({});
+      setRowInEditMode(undefined);
       clearWindowSelection();
 
       await router.push([...path, row.original.name].join("/"));
     }
     console.log("Open the file");
   };
-  const onClick = (event: MouseEvent<HTMLTableRowElement>) => {
-    const hasShiftKey = event.shiftKey;
-    const hasMetaKey = event.metaKey || event.ctrlKey;
+
+  const handleCheckboxChange = (
+    event: MouseEvent<HTMLTableRowElement>
+  ): boolean => {
     if (event.target instanceof HTMLInputElement) {
       if (event.target.checked) {
         setLastSelectedRow(row.id);
       }
 
-      return;
+      return true;
     }
+
+    return false;
+  };
+
+  const onClick = (event: MouseEvent<HTMLTableRowElement>) => {
+    if (handleCheckboxChange(event)) return;
+
+    const hasShiftKey = event.shiftKey;
+    const hasMetaKey = event.metaKey || event.ctrlKey;
+
     if (!hasShiftKey) {
       setLastSelectedRow(row.id);
     }
@@ -52,10 +66,7 @@ export const DirectoryTableRow = ({ row }: Props) => {
         (acc, id) => ({ ...acc, [id]: true }),
         {}
       );
-      const prevSelectionRange = mapObject(
-        (value) => !value,
-        lastSelectionRange
-      );
+      const prevSelectionRange = mapObject(not, lastSelectionRange);
       setRowSelection((prev) => ({
         ...prev,
         ...prevSelectionRange,
@@ -71,12 +82,13 @@ export const DirectoryTableRow = ({ row }: Props) => {
     setLastSelectionRange(_lastSelectionRange);
     clearWindowSelection();
   };
+  const isRowSelected = row.getIsSelected();
 
   return (
     <tr
       className={cx("cursor-default border-b", {
-        "bg-primary-100": row.getIsSelected(),
-        "hover:bg-base-100": !row.getIsSelected(),
+        "bg-primary-100": isRowSelected,
+        "hover:bg-base-100": !isRowSelected,
       })}
       data-row-id={row.id}
       onDoubleClick={() => void onDoubleClick()}

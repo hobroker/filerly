@@ -6,6 +6,7 @@ import {
 import { Checkbox } from "~/client/components/Checkbox";
 import { DirectoryTableDropdownMenu } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableDropdownMenu";
 import { FileIcon } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileIcon";
+import { FileName } from "~/client/components/DirectoryView/components/DirectoryTable/components/FileName";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { toFormattedDateOrTime } from "~/client/components/DirectoryView/components/DirectoryTable/utils";
 import { bytesToHumanReadable } from "~/utils/bytesToHumanReadable";
@@ -48,7 +49,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
     meta: { className: "w-8" },
   },
   columnHelper.accessor("name", {
-    cell: (info) => <span className="prose-sm pr-2">{info.getValue()}</span>,
+    cell: (info) => <FileName value={info.getValue()} rowId={info.row.id} />,
     header: () => "Name",
   }),
   columnHelper.accessor("size", {
