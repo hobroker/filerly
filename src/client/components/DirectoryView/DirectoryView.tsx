@@ -1,5 +1,5 @@
 import { api } from "~/client/api";
-import { Breadcrumbs } from "~/client/components/Breadcrumbs";
+import { Breadcrumbs } from "~/client/components/DirectoryView/components/Breadcrumbs";
 import { DirectoryTable } from "~/client/components/DirectoryView/components/DirectoryTable";
 import { DirectoryProvider } from "~/client/components/DirectoryView/contexts";
 import { ToastProvider } from "~/client/components/Toast/contexts";
