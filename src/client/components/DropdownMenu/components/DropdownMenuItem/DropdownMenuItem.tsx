@@ -1,4 +1,8 @@
-import { type ForwardRefExoticComponent } from "react";
+import {
+  type ForwardRefExoticComponent,
+  type MouseEvent,
+  useState,
+} from "react";
 import { type MenuItemProps, Item } from "@radix-ui/react-dropdown-menu";
 import classNames from "classnames";
 import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/components/DropdownMenuItem/types";
@@ -14,8 +18,21 @@ export const DropdownMenuItem = ({
   icon: Icon,
   onClick,
   variation,
+  confirm,
   as: As = Item,
 }: Props) => {
+  const [internalTitle, setInternalTitle] = useState(title);
+  const onButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    if (internalTitle !== confirm) {
+      event.stopPropagation();
+
+      if (!confirm) return;
+      setInternalTitle(confirm);
+
+      return;
+    }
+  };
+
   return (
     <As
       key={title}
@@ -23,16 +40,23 @@ export const DropdownMenuItem = ({
         event.stopPropagation();
         onClick?.();
       }}
-      className={classNames(
-        "prose-sm flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none",
-        {
-          primary: "text-primary-900 focus:bg-primary-400 focus:text-white",
-          danger: "text-danger-900 focus:bg-danger-400 focus:text-white",
-        }[variation || "primary"]
-      )}
     >
-      <Icon size={16} />
-      {title}
+      <button
+        className={classNames(
+          "prose-sm flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none",
+          "hover:text-white",
+          {
+            primary:
+              "text-primary-600 hover:bg-primary-500 hover:text-white focus:bg-primary-500 focus:text-white",
+            danger:
+              "text-danger-600 hover:bg-danger-500 hover:text-white focus:bg-danger-500 focus:text-white",
+          }[variation || "primary"]
+        )}
+        onClick={onButtonClick}
+      >
+        <Icon size={16} />
+        {internalTitle}
+      </button>
     </As>
   );
 };

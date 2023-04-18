@@ -6,6 +6,7 @@ import { useOnSuccess } from "~/client/components/DirectoryView/components/Direc
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
 import { useRemoveFiles } from "~/client/components/DirectoryView/hooks";
 import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/components/DropdownMenuItem";
+import { pluralize } from "~/client/utils/pluralize";
 
 export const useFileActions = (): DropdownMenuItemType[] => {
   const { paths, singleRow } = useSelectedRows();
@@ -24,6 +25,7 @@ export const useFileActions = (): DropdownMenuItemType[] => {
         title: "Delete",
         icon: Trash,
         variation: "danger",
+        confirm: `Click again to delete the ${pluralize(paths.length, "file")}`,
         onClick: () => remove({ paths }),
       },
     ]);
