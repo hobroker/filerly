@@ -1,5 +1,6 @@
 import { basename } from "path";
 import { api, type RouterInputs } from "~/client/api";
+import { useHandleError } from "~/client/components/DirectoryView/hooks/useHandleError";
 import { useHandleFileActionsGroup } from "~/client/components/DirectoryView/hooks/useHandleFileActionsGroup";
 
 interface Props {
@@ -13,9 +14,10 @@ export const useRenameFile = ({ onSuccess, onError }: Props) => {
     errorTitle: "Failed to rename",
     onSuccess,
   });
+  const _onError = useHandleError({ onError });
   const { mutate, data } = api.fs.rename.useMutation({
     onSuccess: _onSuccess,
-    onError,
+    onError: _onError,
   });
 
   return {
