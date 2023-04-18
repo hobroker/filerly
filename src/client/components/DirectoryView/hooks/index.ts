@@ -1,2 +1,2 @@
 export { useRemoveFiles } from "./useRemoveFiles";
-export { useRenameFile } from "./useRenameFile";
+export { useMoveFile } from "./useMoveFile";
