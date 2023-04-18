@@ -1,4 +1,5 @@
 import { api } from "~/client/api";
+import { useHandleError } from "~/client/components/DirectoryView/hooks/useHandleError";
 import { useHandleFileActionsGroup } from "~/client/components/DirectoryView/hooks/useHandleFileActionsGroup";
 
 interface Props {
@@ -12,9 +13,10 @@ export const useRemoveFiles = ({ onSuccess, onError }: Props) => {
     errorTitle: "Failed to remove",
     onSuccess,
   });
+  const _onError = useHandleError({ onError });
   const { mutate, data } = api.fs.remove.useMutation({
     onSuccess: _onSuccess,
-    onError,
+    onError: _onError,
   });
 
   return {
