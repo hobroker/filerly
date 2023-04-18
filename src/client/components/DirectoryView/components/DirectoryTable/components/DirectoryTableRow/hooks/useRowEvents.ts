@@ -1,19 +1,17 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
-import { flexRender, type Row } from "@tanstack/react-table";
-import { range, omit } from "ramda";
+import { type Row } from "@tanstack/react-table";
+import { omit, range } from "ramda";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
-import { clearWindowSelection, cx } from "~/client/utils";
-import { minMaxBy } from "~/client/utils/minMaxBy";
+import { clearWindowSelection, minMaxBy } from "~/client/utils";
 
 interface Props {
   row: Row<DirectoryTableRowData>;
-  isEven: boolean;
 }
 
-export const DirectoryTableRow = ({ row, isEven }: Props) => {
+export const useRowEvents = ({ row }: Props) => {
   const router = useRouter();
   const { path } = useContext(DirectoryContext);
   const {
@@ -70,12 +68,13 @@ export const DirectoryTableRow = ({ row, isEven }: Props) => {
       ...selectionRange,
     }));
     setLastSelectionRange(selectionRange);
-    clearWindowSelection();
 
     return true;
   };
 
   const onClick = (event: MouseEvent<HTMLTableRowElement>) => {
+    clearWindowSelection();
+
     if (handleCheckboxChange(event)) return;
     if (handleMultiSelect(event)) return;
 
@@ -90,26 +89,7 @@ export const DirectoryTableRow = ({ row, isEven }: Props) => {
       ...(hasMetaKey && prev),
       [row.id]: hasMetaKey ? !prev[row.id] : true,
     }));
-
-    clearWindowSelection();
   };
-  const isRowSelected = row.getIsSelected();
 
-  return (
-    <tr
-      className={cx("cursor-default", {
-        "bg-primary-100": isRowSelected,
-        "bg-base-100": !isEven && !isRowSelected,
-      })}
-      data-row-id={row.id}
-      onDoubleClick={() => void onDoubleClick()}
-      onClick={onClick}
-    >
-      {row.getVisibleCells().map((cell) => (
-        <td key={cell.id} className="h-6 p-0">
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </td>
-      ))}
-    </tr>
-  );
+  return { onClick, onDoubleClick };
 };

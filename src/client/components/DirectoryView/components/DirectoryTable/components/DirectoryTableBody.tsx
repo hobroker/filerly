@@ -1,6 +1,6 @@
 import { type MouseEvent, useContext } from "react";
 import { DirectoryTableContextMenu } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableContextMenu";
-import { DirectoryTableRow } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableRow";
+import { DirectoryTableRow } from "~/client/components/DirectoryView/components/DirectoryTable/components/DirectoryTableRow/DirectoryTableRow";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { findParentElement } from "~/client/utils";
 
