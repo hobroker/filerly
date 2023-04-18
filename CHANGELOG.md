@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/hobroker/filerly/compare/v1.9.0...v1.10.0) (2023-04-18)
+
+
+### Features
+
+* handle errors ([#24](https://github.com/hobroker/filerly/issues/24)) ([211516f](https://github.com/hobroker/filerly/commit/211516fa4dabb5f60f9de66a058906af48d501fc))
+
 # [1.9.0](https://github.com/hobroker/filerly/compare/v1.8.0...v1.9.0) (2023-04-18)
 
 
