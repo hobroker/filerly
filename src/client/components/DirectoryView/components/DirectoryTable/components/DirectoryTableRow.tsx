@@ -1,7 +1,7 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
 import { flexRender, type Row } from "@tanstack/react-table";
-import { not, mapObjIndexed, range } from "ramda";
+import { range, omit } from "ramda";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
@@ -50,8 +50,34 @@ export const DirectoryTableRow = ({ row, isEven }: Props) => {
     return false;
   };
 
+  const handleMultiSelect = (
+    event: MouseEvent<HTMLTableRowElement>
+  ): boolean => {
+    const hasShiftKey = event.shiftKey;
+    if (!hasShiftKey || !lastSelectedRow) {
+      setLastSelectionRange({});
+
+      return false;
+    }
+
+    const [min, max] = minMaxBy<string>(Number, [row.id, lastSelectedRow]);
+    const selectionRange = range(min, max + 1).reduce(
+      (acc, id) => ({ ...acc, [id]: true }),
+      {}
+    );
+    setRowSelection((prev) => ({
+      ...omit(Object.keys(lastSelectionRange), prev),
+      ...selectionRange,
+    }));
+    setLastSelectionRange(selectionRange);
+    clearWindowSelection();
+
+    return true;
+  };
+
   const onClick = (event: MouseEvent<HTMLTableRowElement>) => {
     if (handleCheckboxChange(event)) return;
+    if (handleMultiSelect(event)) return;
 
     const hasShiftKey = event.shiftKey;
     const hasMetaKey = event.metaKey || event.ctrlKey;
@@ -59,28 +85,12 @@ export const DirectoryTableRow = ({ row, isEven }: Props) => {
     if (!hasShiftKey) {
       setLastSelectedRow(row.id);
     }
-    let _lastSelectionRange = {};
-    if (hasMetaKey) {
-      _lastSelectionRange = {};
-    }
-    if (hasShiftKey && lastSelectedRow) {
-      const selectionRange = range(
-        ...minMaxBy<string>(Number, [row.id, lastSelectedRow])
-      ).reduce((acc, id) => ({ ...acc, [id]: true }), {});
-      const prevSelectionRange = mapObjIndexed(not, lastSelectionRange);
-      setRowSelection((prev) => ({
-        ...prev,
-        ...prevSelectionRange,
-        ...selectionRange,
-      }));
-      _lastSelectionRange = selectionRange;
-    } else {
-      setRowSelection((prev) => ({
-        ...(hasMetaKey && prev),
-        [row.id]: hasMetaKey ? !prev[row.id] : true,
-      }));
-    }
-    setLastSelectionRange(_lastSelectionRange);
+
+    setRowSelection((prev) => ({
+      ...(hasMetaKey && prev),
+      [row.id]: hasMetaKey ? !prev[row.id] : true,
+    }));
+
     clearWindowSelection();
   };
   const isRowSelected = row.getIsSelected();
