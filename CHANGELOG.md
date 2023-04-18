@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/hobroker/filerly/compare/v1.8.0...v1.9.0) (2023-04-18)
+
+
+### Features
+
+* confirm delete file ([#23](https://github.com/hobroker/filerly/issues/23)) ([eac81c5](https://github.com/hobroker/filerly/commit/eac81c52eda31ceded86e106506f5e64503c9ee0))
+
 # [1.8.0](https://github.com/hobroker/filerly/compare/v1.7.0...v1.8.0) (2023-04-17)
 
 
