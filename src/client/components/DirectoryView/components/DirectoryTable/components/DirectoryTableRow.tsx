@@ -1,11 +1,12 @@
 import { type MouseEvent, useContext } from "react";
 import { useRouter } from "next/router";
 import { flexRender, type Row } from "@tanstack/react-table";
-import { not } from "ramda";
+import { not, mapObjIndexed, range } from "ramda";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { type DirectoryTableRowData } from "~/client/components/DirectoryView/components/DirectoryTable/types";
 import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
-import { clearWindowSelection, cx, mapObject, range } from "~/client/utils";
+import { clearWindowSelection, cx } from "~/client/utils";
+import { minMaxBy } from "~/client/utils/minMaxBy";
 
 interface Props {
   row: Row<DirectoryTableRowData>;
@@ -63,11 +64,10 @@ export const DirectoryTableRow = ({ row, isEven }: Props) => {
       _lastSelectionRange = {};
     }
     if (hasShiftKey && lastSelectedRow) {
-      const selectionRange = range(row.id, lastSelectedRow).reduce(
-        (acc, id) => ({ ...acc, [id]: true }),
-        {}
-      );
-      const prevSelectionRange = mapObject(not, lastSelectionRange);
+      const selectionRange = range(
+        ...minMaxBy<string>(Number, [row.id, lastSelectedRow])
+      ).reduce((acc, id) => ({ ...acc, [id]: true }), {});
+      const prevSelectionRange = mapObjIndexed(not, lastSelectionRange);
       setRowSelection((prev) => ({
         ...prev,
         ...prevSelectionRange,
