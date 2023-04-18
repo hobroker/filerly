@@ -1,8 +1,11 @@
 import { type RefObject, useCallback, useEffect } from "react";
 
-export function useOnClickOutside<
+export const useOnClickOutside = <
   ElementType extends HTMLElement = HTMLDivElement
->(ref: RefObject<ElementType>, onClickOutside: (node: Node) => void) {
+>(
+  ref: RefObject<ElementType>,
+  onClickOutside: (node: Node) => void
+) => {
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       const target = event.target as Node;
@@ -26,4 +29,4 @@ export function useOnClickOutside<
       document.removeEventListener("mousedown", handleClickOutside, true);
     };
   }, [handleClickOutside]);
-}
+};

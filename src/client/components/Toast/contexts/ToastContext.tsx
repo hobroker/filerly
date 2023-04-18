@@ -21,7 +21,7 @@ const ToastContext = createContext<ContextType>({
   showToast: noop,
 });
 
-function ToastProvider({ children }: Props) {
+const ToastProvider = ({ children }: Props) => {
   const [toasts, setToasts] = useState<ToastTypeWithId[]>([]);
   const showToast = useCallback((toast: ToastType) => {
     setToasts((prev) => [...prev, { ...toast, id: uuid() }]);
@@ -49,6 +49,6 @@ function ToastProvider({ children }: Props) {
       </RadixToast.Provider>
     </ToastContext.Provider>
   );
-}
+};
 
 export { ToastProvider, ToastContext };

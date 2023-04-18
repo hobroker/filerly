@@ -13,17 +13,15 @@ interface ContextType {
 
 const DirectoryContext = createContext<ContextType>({} as ContextType);
 
-function DirectoryProvider({ children, path, refetch }: Props) {
-  return (
-    <DirectoryContext.Provider
-      value={{
-        path,
-        refetch,
-      }}
-    >
-      {children}
-    </DirectoryContext.Provider>
-  );
-}
+const DirectoryProvider = ({ children, path, refetch }: Props) => (
+  <DirectoryContext.Provider
+    value={{
+      path,
+      refetch,
+    }}
+  >
+    {children}
+  </DirectoryContext.Provider>
+);
 
 export { DirectoryProvider, DirectoryContext };

@@ -27,7 +27,7 @@ interface ContextType {
 
 const DirectoryTableContext = createContext<ContextType>({} as ContextType);
 
-function DirectoryTableProvider({ children, data }: Props) {
+const DirectoryTableProvider = ({ children, data }: Props) => {
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [lastSelectedRow, setLastSelectedRow] = useState<string>();
   const [lastSelectionRange, setLastSelectionRange] = useState<
@@ -63,6 +63,6 @@ function DirectoryTableProvider({ children, data }: Props) {
       {children}
     </DirectoryTableContext.Provider>
   );
-}
+};
 
 export { DirectoryTableProvider, DirectoryTableContext };
