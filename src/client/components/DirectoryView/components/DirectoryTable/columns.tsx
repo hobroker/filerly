@@ -49,7 +49,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
     meta: { className: "w-8" },
   },
   columnHelper.accessor("name", {
-    cell: (info) => <FileName value={info.getValue()} rowId={info.row.id} />,
+    cell: (info) => <FileName row={info.row} />,
     header: () => "Name",
   }),
   columnHelper.accessor("size", {
@@ -60,7 +60,7 @@ export const DIRECTORY_TABLE_COLUMNS = [
         </span>
       ),
     header: () => "Size",
-    meta: { className: "w-28" },
+    meta: { className: "w-24" },
   }),
   columnHelper.accessor("lastModified", {
     cell: (info) => (

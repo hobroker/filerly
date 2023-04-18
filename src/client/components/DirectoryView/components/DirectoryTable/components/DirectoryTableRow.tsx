@@ -9,9 +9,10 @@ import { clearWindowSelection, cx, mapObject, range } from "~/client/utils";
 
 interface Props {
   row: Row<DirectoryTableRowData>;
+  isEven: boolean;
 }
 
-export const DirectoryTableRow = ({ row }: Props) => {
+export const DirectoryTableRow = ({ row, isEven }: Props) => {
   const router = useRouter();
   const { path } = useContext(DirectoryContext);
   const {
@@ -86,9 +87,9 @@ export const DirectoryTableRow = ({ row }: Props) => {
 
   return (
     <tr
-      className={cx("cursor-default border-b", {
+      className={cx("cursor-default", {
         "bg-primary-100": isRowSelected,
-        "hover:bg-base-100": !isRowSelected,
+        "bg-base-100": !isEven && !isRowSelected,
       })}
       data-row-id={row.id}
       onDoubleClick={() => void onDoubleClick()}

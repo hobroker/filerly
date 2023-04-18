@@ -8,7 +8,11 @@ type Params = {
 const BrowsePage: NextPage<Params> = ({ path }) => {
   if (!path) return null;
 
-  return <DirectoryView path={path} />;
+  return (
+    <div className="h-screen">
+      <DirectoryView path={path} />
+    </div>
+  );
 };
 
 export const getStaticProps: GetStaticProps<Params> = (context) => {
