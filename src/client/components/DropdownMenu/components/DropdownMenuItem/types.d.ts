@@ -7,4 +7,5 @@ export interface DropdownMenuItemType {
   icon: Icon;
   onClick?: () => void;
   variation?: DropdownMenuItemVariation;
+  confirm?: string;
 }

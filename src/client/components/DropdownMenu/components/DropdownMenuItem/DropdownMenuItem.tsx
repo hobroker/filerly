@@ -1,4 +1,4 @@
-import { type ForwardRefExoticComponent } from "react";
+import { type ForwardRefExoticComponent, useState } from "react";
 import { type MenuItemProps, Item } from "@radix-ui/react-dropdown-menu";
 import classNames from "classnames";
 import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/components/DropdownMenuItem/types";
@@ -13,26 +13,37 @@ export const DropdownMenuItem = ({
   title,
   icon: Icon,
   onClick,
-  variation,
+  variation = "primary",
+  confirm,
   as: As = Item,
 }: Props) => {
+  const [internalTitle, setInternalTitle] = useState(title);
+  const onSelect = (event: Event) => {
+    if (!confirm || internalTitle === confirm) {
+      onClick?.();
+
+      return;
+    }
+
+    event.preventDefault();
+    setInternalTitle(confirm);
+  };
+
   return (
     <As
       key={title}
-      onClick={(event) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
+      onSelect={onSelect}
       className={classNames(
-        "prose-sm flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none",
+        "cursor-default rounded outline-0",
+        "prose-sm flex w-full cursor-default items-center gap-2 rounded px-2 py-1 outline-none data-[highlighted]:text-white",
         {
-          primary: "text-primary-900 focus:bg-primary-400 focus:text-white",
-          danger: "text-danger-900 focus:bg-danger-400 focus:text-white",
-        }[variation || "primary"]
+          primary: "text-primary-500 data-[highlighted]:bg-primary-500",
+          danger: "text-danger-500 data-[highlighted]:bg-danger-500",
+        }[variation]
       )}
     >
       <Icon size={16} />
-      {title}
+      {internalTitle}
     </As>
   );
 };

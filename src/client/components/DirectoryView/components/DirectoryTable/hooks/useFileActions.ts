@@ -24,6 +24,7 @@ export const useFileActions = (): DropdownMenuItemType[] => {
         title: "Delete",
         icon: Trash,
         variation: "danger",
+        confirm: "Click again to confirm",
         onClick: () => remove({ paths }),
       },
     ]);
