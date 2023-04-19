@@ -1,5 +1,5 @@
 import { basename, join } from "path";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { type Row } from "@tanstack/react-table";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
@@ -31,7 +31,7 @@ export const useNewFolderAction = () => {
     },
   });
 
-  return () => {
+  return useCallback(() => {
     const newName = getNextNewFilderName(
       table
         .getRowModel()
@@ -42,5 +42,5 @@ export const useNewFolderAction = () => {
         )
     );
     mkdir({ path: join(rawPath, newName) });
-  };
+  }, [mkdir, rawPath, table]);
 };
