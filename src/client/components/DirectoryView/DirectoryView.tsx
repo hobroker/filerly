@@ -14,7 +14,7 @@ export const DirectoryView = ({ path }: Props) => {
   return (
     <ToastProvider>
       <DirectoryProvider path={path} refetch={() => void refetch()}>
-        <div className="flex h-full flex-col p-1">
+        <div className="flex max-h-full flex-col p-1">
           <Breadcrumbs path={path} />
           <div className="block h-full overflow-y-scroll">
             <DirectoryTable

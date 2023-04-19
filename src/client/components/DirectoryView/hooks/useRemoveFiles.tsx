@@ -3,7 +3,7 @@ import { useHandleError } from "~/client/components/DirectoryView/hooks/useHandl
 import { useHandleFileActionsGroup } from "~/client/components/DirectoryView/hooks/useHandleFileActionsGroup";
 
 interface Props {
-  onSuccess?: () => void;
+  onSuccess?: () => Promise<void>;
   onError?: () => void;
 }
 

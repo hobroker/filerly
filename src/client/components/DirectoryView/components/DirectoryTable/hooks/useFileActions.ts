@@ -1,22 +1,19 @@
-import { join } from "path";
 import { useContext, useMemo } from "react";
-import { Pencil, Trash, Folder } from "@phosphor-icons/react";
+import { Folder, Pencil, Trash } from "@phosphor-icons/react";
 import { compact } from "ramda-adjunct";
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
+import { useNewFolderAction } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useNewFolderAction";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
-import { DirectoryContext } from "~/client/components/DirectoryView/contexts";
 import { useRemoveFiles } from "~/client/components/DirectoryView/hooks";
-import { useCreateFolder } from "~/client/components/DirectoryView/hooks/useCreateFolder";
 import { type DropdownMenuItemType } from "~/client/components/DropdownMenu/components/DropdownMenuItem";
 
 export const useFileActions = (): DropdownMenuItemType[] => {
-  const { rawPath } = useContext(DirectoryContext);
   const { paths, singleRow } = useSelectedRows();
   const onSuccess = useOnSuccess();
   const { setRowInEditMode } = useContext(DirectoryTableContext);
   const { mutate: remove } = useRemoveFiles({ onSuccess });
-  const { mutate: mkdir } = useCreateFolder({ onSuccess });
+  const mkdir = useNewFolderAction();
 
   return useMemo(() => {
     return compact([
@@ -24,8 +21,7 @@ export const useFileActions = (): DropdownMenuItemType[] => {
         title: "New Folder",
         icon: Folder,
         variation: "primary",
-        onClick: () =>
-          mkdir({ path: join(rawPath, `untitled folder ${Math.random()}`) }),
+        onClick: mkdir,
       },
       singleRow && {
         title: "Rename",
@@ -40,5 +36,5 @@ export const useFileActions = (): DropdownMenuItemType[] => {
         onClick: () => remove({ paths }),
       },
     ]);
-  }, [mkdir, paths, rawPath, remove, setRowInEditMode, singleRow]);
+  }, [mkdir, paths, remove, setRowInEditMode, singleRow]);
 };
