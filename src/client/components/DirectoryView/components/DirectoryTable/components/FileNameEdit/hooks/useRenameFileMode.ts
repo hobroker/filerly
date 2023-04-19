@@ -8,7 +8,7 @@ import {
 import { DirectoryTableContext } from "~/client/components/DirectoryView/components/DirectoryTable/contexts";
 import { useOnSuccess } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useOnSuccess";
 import { useSelectedRows } from "~/client/components/DirectoryView/components/DirectoryTable/hooks/useSelectedRows";
-import { useRenameFile } from "~/client/components/DirectoryView/hooks";
+import { useMoveFile } from "~/client/components/DirectoryView/hooks";
 
 interface Props {
   value: string;
@@ -19,7 +19,7 @@ export const useRenameFileMode = ({ value }: Props) => {
   const [inputValue, setInputValue] = useState(value);
   const onSuccess = useOnSuccess();
   const { singlePath } = useSelectedRows();
-  const { mutate: rename } = useRenameFile({ onSuccess });
+  const { mutate: rename } = useMoveFile({ onSuccess });
 
   const submit = () => {
     if (typeof singlePath !== "string" || !inputValue.length) return;

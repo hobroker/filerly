@@ -8,6 +8,7 @@ interface Props {
 
 interface ContextType {
   path: string[];
+  rawPath: string;
   refetch: () => void;
 }
 
@@ -17,6 +18,7 @@ const DirectoryProvider = ({ children, path, refetch }: Props) => (
   <DirectoryContext.Provider
     value={{
       path,
+      rawPath: `/${path.join("/")}`,
       refetch,
     }}
   >

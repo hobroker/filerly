@@ -7,7 +7,8 @@ export const useOnSuccess = () => {
   const { setRowSelection } = useContext(DirectoryTableContext);
 
   return () => {
-    refetch();
     setRowSelection({});
+
+    return Promise.resolve(refetch());
   };
 };
